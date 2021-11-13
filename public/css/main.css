@@ -1,0 +1,211 @@
+.el-aside{
+    background-color: #1b1e21;
+}
+
+.el-menu{
+    background-color: #1b1e21 !important;
+}
+
+.el-container{
+    height: 100vh !important;
+}
+
+.el-image{
+    padding: 15px;
+}
+
+.el-header{
+    height: 77px !important;
+}
+
+.el-hr{
+    height: 5px;
+    background-color: rgb(247, 212, 8);
+}
+
+.bg-multiply{
+    background-color: rgba(0,0,0,0.6);
+}
+.bg-main{
+    background-color: #f8fafc;
+}
+#myBtn {
+    background-color: coral;
+    border: 1px  coral solid;
+    border-radius: 2em;
+    color: white;
+    /*padding: 1.0em;*/
+    width: 18%;
+    height: 50px;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    /*top: 130px;*/
+    right: 30px;
+    z-index: 10000;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+}
+
+#myBtn2 {
+    background-color: coral;
+    border: 1px  coral solid;
+    border-radius: 2em;
+    color: white;
+    /*padding: 1.0em;*/
+    width: 18%;
+    height: 50px;
+    display: none;
+    position: fixed;
+    /*top: 130px;*/
+    bottom: 20px;
+    right: 30px;
+    z-index: 10000;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-nav{
+    font-weight:bold;
+    color:white;
+    text-decoration:none
+}
+.btn-nav:hover{
+    color:yellow;
+}
+.btn-nav.focus,.btn-nav:focus{
+    text-decoration:underline;
+    box-shadow:none
+}
+.btn-nav.disabled,.btn-nav:disabled{
+    color:#6c757d;
+    pointer-events:none
+}
+
+.carousel-item {
+    height: 600px;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.title-submenu{
+    font-weight: bolder;
+    font-style: normal;
+    color: #000000;
+    height: 40px;
+    padding-top: 5px;
+}
+
+.title-a{
+    font-weight: bolder;
+    font-style: normal;
+    background-image: url("/images/doc.png");
+    background-position: 0 1.06em;
+    background-repeat: no-repeat;
+    background-size: 100px 10px;
+    height: 40px;
+}
+
+.title-b{
+    font-weight: bolder;
+    font-style: normal;
+    color: #FFCC03;
+}
+
+.title-c{
+    font-weight: bolder;
+    font-style: normal;
+    color: #fff0ff;
+    font-size: 3em;
+    text-align: center;
+}
+.overlap-seccion{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.overlap-seccion:hover{
+    background-color: rgba(0,0,0,0.5);
+}
+
+.overlay-seccion .normal {
+    transition: .5s ease;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+.img-foother{
+    margin-left: 21%;
+    padding-top: 10%;
+    width: 5%;
+}
+.footer{
+    background-color: black;
+    background-repeat: no-repeat;
+    min-height: 400px;
+}
+
+.footer p, label{
+    color: darkgray;
+}
+
+.btn-a{
+    background-color: coral;
+    border: 1px  coral solid;
+    border-radius: 2em;
+    color: white;
+    padding: 0.5em;
+    width: 100px;
+}
+
+.btn-b{
+    background-color: coral;
+    border: 1px  coral solid;
+    border-radius: 2em;
+    color: white;
+    padding: 1.0em;
+    width: 80%;
+    height: 50px;
+}
+
+.btn-c{
+    background-color: gray;
+    border: 1px  darkgray solid;
+    border-radius: 2em;
+    color: white;
+    padding: 1.0em;
+    width: 80%;
+    height: 50px;
+}
+
+.owl-carousel img{
+
+}
+
+.no-padding-cero{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-padding-rigth{
+    padding-right: 0 !important;
+}
+
+.slick-next{
+    background-image: url("/images/home/btn_next.png") !important;
+}
+
+.slick-prev{
+    background-image: url("/images/home/btn_prev.png") !important;
+}
