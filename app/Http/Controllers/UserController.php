@@ -208,8 +208,8 @@ class UserController extends Controller
         if(request()->isMethod("DELETE")){
             try{
                 $user=User::findOrFail($id);
-                if ($user -> image != null) {
-                    Storage:: delete ('public/'.$user -> image);
+                if ($user -> img != null) {
+                    Storage:: delete ('public/'.$user -> img);
                 }
                 $user->delete();
                 return 1;

@@ -4854,7 +4854,7 @@ __webpack_require__.r(__webpack_exports__);
     onClickDelete: function onClickDelete($idc, $iddel, $userd) {
       var _this3 = this;
 
-      this.$confirm("Realmente desea eliminar al usuario " + $userd.name, "Alerta", {
+      this.$confirm("Realmente desea eliminar al empleado " + $userd.name, "Alerta", {
         confirmButtonText: "Continuar",
         cancelButtonText: "Cancelar",
         type: "warning"
@@ -104781,13 +104781,13 @@ var render = function () {
                         _vm._v(
                           "\n                  Puesto\n                  "
                         ),
-                        this.searchfield == 5 && this.asc == false
+                        this.searchfield == 3 && this.asc == false
                           ? _c("i", {
                               staticClass: "text-success el-icon-caret-top",
                             })
                           : _vm._e(),
                         _vm._v(" "),
-                        this.searchfield == 5 && this.asc == true
+                        this.searchfield == 3 && this.asc == true
                           ? _c("i", {
                               staticClass: "text-primary el-icon-caret-bottom",
                             })
@@ -105020,13 +105020,13 @@ var render = function () {
                         _vm._v(
                           "\n                  Puesto\n                  "
                         ),
-                        this.searchfield == 5 && this.asc == false
+                        this.searchfield == 3 && this.asc == false
                           ? _c("i", {
                               staticClass: "text-success el-icon-caret-top",
                             })
                           : _vm._e(),
                         _vm._v(" "),
-                        this.searchfield == 5 && this.asc == true
+                        this.searchfield == 3 && this.asc == true
                           ? _c("i", {
                               staticClass: "text-primary el-icon-caret-bottom",
                             })

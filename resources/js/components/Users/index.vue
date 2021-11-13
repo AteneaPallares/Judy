@@ -56,11 +56,11 @@
                   <th @click="sort(3)">
                     Puesto
                     <i
-                      v-if="this.searchfield == 5 && this.asc == false"
+                      v-if="this.searchfield == 3 && this.asc == false"
                       class="text-success el-icon-caret-top"
                     />
                     <i
-                      v-if="this.searchfield == 5 && this.asc == true"
+                      v-if="this.searchfield == 3 && this.asc == true"
                       class="text-primary el-icon-caret-bottom"
                     />
                   </th>
@@ -163,11 +163,11 @@
                   <th @click="sort(3)">
                     Puesto
                     <i
-                      v-if="this.searchfield == 5 && this.asc == false"
+                      v-if="this.searchfield == 3 && this.asc == false"
                       class="text-success el-icon-caret-top"
                     />
                     <i
-                      v-if="this.searchfield == 5 && this.asc == true"
+                      v-if="this.searchfield == 3 && this.asc == true"
                       class="text-primary el-icon-caret-bottom"
                     />
                   </th>
@@ -401,7 +401,7 @@ export default {
     },
     onClickDelete($idc, $iddel, $userd) {
       this.$confirm(
-        "Realmente desea eliminar al usuario " + $userd.name,
+        "Realmente desea eliminar al empleado " + $userd.name,
         "Alerta",
         {
           confirmButtonText: "Continuar",
@@ -410,6 +410,7 @@ export default {
         }
       )
         .then(() => {
+        
           axios
             .delete(`/empleados/${$idc}`)
             .then((response) => {
