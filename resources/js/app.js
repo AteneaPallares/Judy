@@ -26,6 +26,8 @@
  Vue.component('topbar-component', require('./components/Layout/topMenu.vue').default);
  Vue.component('usersindex-component', require('./components/Users/index.vue').default);
  Vue.component('userscreate-component', require('./components/Users/create.vue').default);
+ Vue.component('clientsindex-component', require('./components/Clients/index.vue').default);
+ Vue.component('clientscreate-component', require('./components/Clients/create.vue').default);
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to

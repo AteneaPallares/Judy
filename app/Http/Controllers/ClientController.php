@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class UserController extends Controller {
+class ClientController extends Controller {
     //
     public function __construct() {
         $this -> middleware('auth');
@@ -18,21 +18,16 @@ class UserController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function actual() {
-        $user = auth() -> user();
-        $user -> roles;
-        return $user;
-    }
     public function index() {
         //
 
-        return view('users.index');
+        return view('clients.index');
     }
 
     public function showall() {
-        //return User::with('roles','schedule')->get();
-        return User:: with ('role') -> get();
-        //return User::all();
+        //return client::with('roles','schedule')->get();
+        return Client::all();
+        //return client::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -41,7 +36,7 @@ class UserController extends Controller {
      */
     public function create() {
         //
-        return view('users.create');
+        return view('clients.create');
     }
 
     /**
@@ -53,24 +48,24 @@ class UserController extends Controller {
     public function store(Request $request) {
         //
         if ($request -> deleteImage != NULL) {
-            $user = User:: findOrFail($request -> deleteImage);
-            if ($user -> img != null) {
-                Storage:: delete ('public/'.$user -> img);
+            $client = Client:: findOrFail($request -> deleteImage);
+            if ($client -> img != null) {
+                Storage:: delete ('public/'.$client -> img);
             }
-            $user -> img=null;
-            $user -> save();
+            $client -> img=null;
+            $client -> save();
             return 1;
         }
         if ($request -> editImage != NULL) {
             if ($request -> hasFile('imagen')) {
-                $user = User:: findOrFail($request -> editImage);
-                Storage:: delete ('public/empleados/'.$user -> img);
-                $stri = "empleado".($user -> id).'.'.$request -> file('imagen') -> extension();;
-                $path = $request -> imagen -> storeAs('empleados', $stri, 'public');
-                $user -> img=$path;
+                $client = Client:: findOrFail($request -> editImage);
+                Storage:: delete ('public/clientes/'.$client -> img);
+                $stri = "cliente".($client -> id).'.'.$request -> file('imagen') -> extension();;
+                $path = $request -> imagen -> storeAs('clientes', $stri, 'public');
+                $client -> img=$path;
                 DB:: beginTransaction();
                 DB:: commit();
-                $user -> save();
+                $client -> save();
                 return 7;
             }
             return 3;
@@ -81,30 +76,22 @@ class UserController extends Controller {
             if ($request -> id != null) {
 
                 $edit = true;
-                $new = User:: findOrFail($request -> id);
+                $new = Client:: findOrFail($request -> id);
             } else {
 
-                $new = new User();
+                $new = new client();
             }
             $new -> name=$request -> name;
             $new -> email=$request -> email;
-            $findid = User:: select("*")
-                -> where("email", "=", $request -> email) -> first();
-            if ($findid != null && $findid -> id != $new -> id) {
-                return ['response'=> 'El correo ya ha sido utilizado'];
-            }
-            if ($request -> password != null) {
-                $new -> password=Hash:: make($request -> password);
-            }
             $new -> address=$request -> address;
-            $new -> birthdate=$request -> birthdate;
+           // $new -> birthdate=$request -> birthdate;
             $new -> phone=$request -> phone;
             $new -> gender=$request -> gender;
-            $new -> status=$request -> status;
-            $new -> id_role=$request -> role;
+          //  $new -> status=$request -> status;
+           // $new -> id_role=$request -> role;
             if ($request -> hasFile('imagen')) {
-                $stri = "empleado".($user -> id).'.'.$request -> file('imagen') -> extension();;
-                $path = $request -> imagen -> storeAs('empleados', $stri, 'public');
+                $stri = "cliente".($client -> id).'.'.$request -> file('imagen') -> extension();;
+                $path = $request -> imagen -> storeAs('clientes', $stri, 'public');
                 $new -> img=$path;
             }
             $new -> save();
@@ -120,9 +107,9 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function showone($id) {
-        //$user=User::with("roles")->findOrFail($id);
-        $user = User:: findOrFail($id);
-        return $user;
+        //$client=client::with("roles")->findOrFail($id);
+        $client = Client:: findOrFail($id);
+        return $client;
     }
     public function show($id) {
         //
@@ -130,7 +117,7 @@ class UserController extends Controller {
         $params = [
             'detailN' => $detailId
         ];
-        return view('users/detail', $params);
+        return view('clients/detail', $params);
     }
 
 
@@ -152,7 +139,7 @@ class UserController extends Controller {
         $params = [
             'detailN' => $detailId
         ];
-        return view('users/edit', $params);
+        return view('clients/edit', $params);
 
     }
     /**
@@ -165,8 +152,8 @@ class UserController extends Controller {
     public function update(Request $request, $id) {
         //
         try {
-            $user = User:: findOrFail($id);
-            $user -> save();
+            $client = Client:: findOrFail($id);
+            $client -> save();
         } catch (\Illuminate\Database\QueryException $e) {
             return $e;
         }
@@ -182,11 +169,11 @@ class UserController extends Controller {
         //
         if (request() -> isMethod("DELETE")) {
             try {
-                $user = User:: findOrFail($id);
-                if ($user -> img != null) {
-                    Storage:: delete ('public/'.$user -> img);
+                $client = Client:: findOrFail($id);
+                if ($client -> img != null) {
+                    Storage:: delete ('public/'.$client -> img);
                 }
-                $user -> delete ();
+                $client -> delete ();
                 return 1;
             } catch (\Illuminate\Database\QueryException $e) {
                 return 0;
