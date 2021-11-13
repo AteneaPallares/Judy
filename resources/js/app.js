@@ -28,6 +28,8 @@
  Vue.component('userscreate-component', require('./components/Users/create.vue').default);
  Vue.component('clientsindex-component', require('./components/Clients/index.vue').default);
  Vue.component('clientscreate-component', require('./components/Clients/create.vue').default);
+ Vue.component('productsindex-component', require('./components/Products/index.vue').default);
+ Vue.component('productscreate-component', require('./components/Products/create.vue').default);
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
