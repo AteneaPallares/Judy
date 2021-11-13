@@ -412,7 +412,7 @@ export default {
         .then(() => {
         
           axios
-            .delete(`/empleados/${$idc}`)
+            .delete(`/empleados/${$idc}/`)
             .then((response) => {
               if (response.data != 1) {
                 this.showErrorNotification(
@@ -423,11 +423,13 @@ export default {
                 this.showSuccessNotification("Eliminar", "Usuario eliminada");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
-                axios.get("/" + this.urlactive + "/").then((res) => {
+                axios.get("/empleados/all").then((res) => {
                   this.content = res.data;
+                  this.aux = this.content;
+                  this.max = Math.ceil(this.content.length / this.pagesize);
+                  this.actual = 0;
+                  this.update();
                 });
-                this.max = Math.ceil(this.aux.length / this.pagesize);
-                this.update();
               }
             })
             .catch((error) => {

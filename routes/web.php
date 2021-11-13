@@ -28,5 +28,8 @@ Route::get('/empleados/detalleone/{id}','App\Http\Controllers\UserController@sho
 Route::get('/empleados/agregar','App\Http\Controllers\UserController@create')->name('users.create');
 Route::get('/empleados/detalle/{id}','App\Http\Controllers\UserController@show')->name('users.show');
 Route::get('/empleados/actual','App\Http\Controllers\UserController@actual')->name('users.show');
+Route::delete('/empleados/{id}', 'App\Http\Controllers\UserController@destroy');
 Route::apiResource('empleados', 'App\Http\Controllers\UserController');
+
+Route::apiResource('roles', 'App\Http\Controllers\RoleController');
 

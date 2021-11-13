@@ -60,20 +60,20 @@ class UserController extends Controller
         //
         if ($request -> deleteImage != NULL) {
             $user = User:: findOrFail($request -> deleteImage);
-            if ($user -> image != null) {
-                Storage:: delete ('public/'.$user -> image);
+            if ($user -> img != null) {
+                Storage:: delete ('public/'.$user -> img);
             }
-            $user -> image=null;
+            $user -> img=null;
             $user -> save();
             return 1;
         }
         if ($request -> editImage != NULL) {
             if ($request -> hasFile('imagen')) {
                 $user = User:: findOrFail($request -> editImage);
-                Storage:: delete ('public/'.$user -> image);
-                $path = Storage::putFile('public', $request->file('imagen'));
-                $ur = (string)$request -> imagen -> hashName();;
-                $user -> image=$ur;
+                Storage:: delete ('public/images/'.$user -> img);
+                $stri="empleado".($user->id).'.'.$request->file('imagen')->extension();;
+                $path = $request->imagen->storeAs('images',$stri, 'public');
+                $user -> img=$path;
                 DB::beginTransaction();
                 DB::commit();
                 $user -> save();
@@ -103,29 +103,31 @@ class UserController extends Controller
                 $new->password=Hash::make($request->password);
             }
             $new->address=$request->address;
-            $new->birth_date=$request->birth_date;
+            $new->birthdate=$request->birth_date;
             $new->phone=$request->phone;
             //$new->ns=$request->ns;
             //$new->CURP=$request->CURP;
-            //$new->gender=$request->gender;
+            $new->gender=$request->gender;
             //$new->occupation=$request->occupation;
             //$new->marita_status=$request->marita_status;
             //$new->weight=$request->weight;
             //$new->height=$request->height;
             
             //$new->phone_sec=$request->phone_sec;
-           // $new->status=$request->status;
+           $new->status=$request->status;
            // $new->cetificate_number=$request->cetificate_number;
             //$new->salary=$request->salary;
-            
+            $new->id_role=$request->role;
             if ($request -> hasFile('imagen')) {
-                $path = $request -> imagen -> store('public');
-                $ur = (string)$request -> imagen -> hashName();;
-                $new-> image=$ur;
+                $stri="empleado".($user->id).'.'.$request->file('imagen')->extension();;
+                $path = $request->imagen->storeAs('images',$stri, 'public');
+               
+                // $path = $request -> imagen -> store('public');
+                // $ur = (string)$request -> imagen -> hashName();;
+                $new-> img=$path;
             }
-            DB::delete('delete from role_user where user_id = ?',[$new->id]);
             $new->save();
-            $new->roles()->attach($request->role);
+            //$new->roles()->attach($request->role);
            
             return ['response'=>$new->id];
         }catch(\Exception $e){
@@ -216,7 +218,6 @@ class UserController extends Controller
             }catch(\Illuminate\Database\QueryException $e){
                 return 0;
             }
-            
         }
     }
 

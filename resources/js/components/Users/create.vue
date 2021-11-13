@@ -127,21 +127,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
-                      <div class="form-group">
-                        <strong>CURP</strong
-                        ><label class="text-danger" v-if="number != 2"> *</label
-                        ><input
-                          class="form-control"
-                          type="text"
-                          name="CURP"
-                          placeholder="Ejem. FEPM890204HASRRN08"
-                          v-model="user.CURP"
-                          :readonly="number == 2"
-                        />
-                      </div>
-                    </div>
-
+                    
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Teléfono</strong
@@ -156,9 +142,7 @@
                         />
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Género</strong
                         ><label class="text-danger" v-if="number != 2">
@@ -188,6 +172,9 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                   
 
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
@@ -214,33 +201,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
-                      <div class="form-group">
-                        <strong>Estado civil</strong
-                        ><label class="text-danger" v-if="number != 2">
-                          *</label
-                        >
-                        <div>
-                          <el-select
-                            style="width: 100%"
-                            v-model="user.marita_status"
-                            filterable
-                            placeholder="Seleccione"
-                            :disabled="number == 2"
-                          >
-                            <el-option
-                              v-for="item in options"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                            >
-                            </el-option>
-                          </el-select>
-                        </div>
-                      </div>
-                    </div>
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="block">
                         <strong>Fecha de nacimiento</strong
@@ -250,7 +210,7 @@
                         <div>
                           <el-date-picker
                             style="width: 100%"
-                            v-model="user.birth_date"
+                            v-model="user.birthdate"
                             type="date"
                             placeholder="Seleccionar"
                             :readonly="number == 2"
@@ -259,58 +219,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <hr />
-                  <hr />
-                  <h5 class="text-primary m-0 font-weight-bold">
-                    Información de Trabajo
-                  </h5>
-                  <div class="row">
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
-                      <div class="form-group">
-                        <strong>Ocupación</strong
-                        ><label class="text-danger" v-if="number != 2"> *</label
-                        ><input
-                          class="form-control"
-                          type="text"
-                          name="occupation"
-                          placeholder="Ejem. Oftalmólogo "
-                          v-model="user.occupation"
-                          :readonly="number == 2"
-                        />
-                      </div>
-                    </div>
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
-                      <div class="form-group">
-                        <strong>Número de cédula</strong
-                        ><input
-                          class="form-control"
-                          type="certificate_number"
-                          name="fathers_name"
-                          step="0.01"
-                          placeholder="Ingrese número de cédula"
-                          v-model="user.cetificate_number"
-                          :readonly="number == 2"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
-                      <div class="form-group">
-                        <strong>Salario (Quincena)</strong
-                        ><label class="text-danger" v-if="number != 2"> *</label
-                        ><input
-                          class="form-control"
-                          type="number"
-                          name="salary"
-                          step="0.01"
-                          placeholder="$"
-                          v-model="user.salary"
-                          :readonly="number == 2"
-                        />
-                      </div>
-                    </div>
+                  
                   </div>
                   <hr />
                   <h5 class="text-primary m-0 font-weight-bold">
@@ -403,21 +312,7 @@
           </div>
         </div>
       </div>
-      <div v-if="number != 0" class="container-fluid mt-5">
-        <div id="" class="card shadow mb-5">
-          <div class="m-0'">
-            <div class="card-header py-3">
-              <h5 class="text-primary font-weight-bold">Horario</h5>
-            </div>
-            <div class="card-body">
-              <scheduleuser-component
-                v-if="this.detailsid != null"
-                v-bind:userselected="this.detailsid"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -441,22 +336,13 @@ export default {
       user: {
         name: null,
         email: null,
-        image: null,
+        img: null,
         address: null,
-        birth_date: null,
+        birthdate: null,
         phone: null,
         role: null,
-        ns: null,
-        CURP: null,
         gender: null,
-        occupation: null,
-        marita_status: null,
-        weight: null,
-        height: null,
-        phone_sec: null,
         status: null,
-        cetificate_number: null,
-        salary: null,
         password: null,
       },
       radio1: "Hombre",
@@ -515,31 +401,32 @@ export default {
         console.log(response.data);
 
         this.user = response.data;
-        this.nuevo = this.user.roles.length > 0 ? this.user.roles[0].id : null;
+        this.nuevo = this.user.id_role;
         if (this.user.gender == 1) {
           this.user.gender = "1";
         } else {
           this.user.gender = "0";
         }
-        if (this.user.image == null) {
+        if (this.user.img == null) {
           document.getElementById("pic").src = "../../../../storage/drop.png";
           document.getElementById("deleteImg").style.visibility = "hidden";
         } else {
           document.getElementById("pic").src =
-            "../../../../storage/" + this.user.image;
+            "../../../../storage/" + this.user.img;
           if (this.number != 2) {
             document.getElementById("deleteImg").style.visibility = "visible";
           }
         }
       });
     }
-    if (this.user.image == null) {
+    if (this.user.img == null) {
       document.getElementById("pic").src = "../../../../storage/drop.png";
       document.getElementById("deleteImg").style.visibility = "hidden";
     }
   },
   methods: {
     validate() {
+      return true;
       if (
         !(
           this.user.name != null &&
@@ -591,7 +478,7 @@ export default {
       this.user.role = this.nuevo;
       console.log(this.user);
       if (this.validate()) {
-        axios.post("/usuarios", this.user).then((response) => {
+        axios.post("/empleados", this.user).then((response) => {
           if (_.isNumber(response.data.response)) {
             this.editid = response.data.response;
             this.showSuccessNotification(
@@ -631,7 +518,7 @@ export default {
             params.append("deleteImage", this.editid);
           }
           console.log(params);
-          axios.post("/usuarios", params).then((response) => {
+          axios.post("/empleados", params).then((response) => {
             console.log(response);
             if (_.isNumber(response.data)) {
               this.showSuccessNotification(
@@ -702,7 +589,7 @@ export default {
       window.location = "/empleados/editar/" + this.editid;
     },
     ret() {
-      window.location = "/usuarios";
+      window.location = "/empleados";
     },
     addShow() {
       this.show = true;

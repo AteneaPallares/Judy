@@ -4087,111 +4087,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "detailsid"],
   data: function data() {
@@ -4211,22 +4106,13 @@ __webpack_require__.r(__webpack_exports__);
       user: {
         name: null,
         email: null,
-        image: null,
+        img: null,
         address: null,
-        birth_date: null,
+        birthdate: null,
         phone: null,
         role: null,
-        ns: null,
-        CURP: null,
         gender: null,
-        occupation: null,
-        marita_status: null,
-        weight: null,
-        height: null,
-        phone_sec: null,
         status: null,
-        cetificate_number: null,
-        salary: null,
         password: null
       },
       radio1: "Hombre",
@@ -4275,7 +4161,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/empleados/detalleone/".concat(this.editid)).then(function (response) {
         console.log(response.data);
         _this.user = response.data;
-        _this.nuevo = _this.user.roles.length > 0 ? _this.user.roles[0].id : null;
+        _this.nuevo = _this.user.id_role;
 
         if (_this.user.gender == 1) {
           _this.user.gender = "1";
@@ -4283,11 +4169,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.user.gender = "0";
         }
 
-        if (_this.user.image == null) {
+        if (_this.user.img == null) {
           document.getElementById("pic").src = "../../../../storage/drop.png";
           document.getElementById("deleteImg").style.visibility = "hidden";
         } else {
-          document.getElementById("pic").src = "../../../../storage/" + _this.user.image;
+          document.getElementById("pic").src = "../../../../storage/" + _this.user.img;
 
           if (_this.number != 2) {
             document.getElementById("deleteImg").style.visibility = "visible";
@@ -4296,13 +4182,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    if (this.user.image == null) {
+    if (this.user.img == null) {
       document.getElementById("pic").src = "../../../../storage/drop.png";
       document.getElementById("deleteImg").style.visibility = "hidden";
     }
   },
   methods: {
     validate: function validate() {
+      return true;
+
       if (!(this.user.name != null && this.user.address != null && this.user.CURP != null && this.user.phone != null && this.user.gender != null && this.user.status != null && this.user.marita_status != null && this.user.birth_date != null && this.user.ns != null && this.user.weight != null && this.user.height != null && this.user.phone_sec != null && this.user.occupation != null && this.user.salary != null && this.user.email != null && this.nuevo != null && (this.show == false || this.user.password != null && this.confirmationp != null))) {
         this.showErrorNotification("Agregando usuario", "Complete la información de los campos requeridos");
         return false;
@@ -4327,7 +4215,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.user);
 
       if (this.validate()) {
-        axios.post("/usuarios", this.user).then(function (response) {
+        axios.post("/empleados", this.user).then(function (response) {
           if (_.isNumber(response.data.response)) {
             _this2.editid = response.data.response;
 
@@ -4366,7 +4254,7 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           console.log(params);
-          axios.post("/usuarios", params).then(function (response) {
+          axios.post("/empleados", params).then(function (response) {
             console.log(response);
 
             if (_.isNumber(response.data)) {
@@ -4449,7 +4337,7 @@ __webpack_require__.r(__webpack_exports__);
       window.location = "/empleados/editar/" + this.editid;
     },
     ret: function ret() {
-      window.location = "/usuarios";
+      window.location = "/empleados";
     },
     addShow: function addShow() {
       this.show = true;
@@ -4859,7 +4747,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "Cancelar",
         type: "warning"
       }).then(function () {
-        axios["delete"]("/empleados/".concat($idc)).then(function (response) {
+        axios["delete"]("/empleados/".concat($idc, "/")).then(function (response) {
           if (response.data != 1) {
             _this3.showErrorNotification("Error al eliminar", "El usuario se encuentra asignado");
           } else {
@@ -4870,12 +4758,14 @@ __webpack_require__.r(__webpack_exports__);
             });
 
             if (index != -1) _this3.aux.splice(index, 1);
-            axios.get("/" + _this3.urlactive + "/").then(function (res) {
+            axios.get("/empleados/all").then(function (res) {
               _this3.content = res.data;
-            });
-            _this3.max = Math.ceil(_this3.aux.length / _this3.pagesize);
+              _this3.aux = _this3.content;
+              _this3.max = Math.ceil(_this3.content.length / _this3.pagesize);
+              _this3.actual = 0;
 
-            _this3.update();
+              _this3.update();
+            });
           }
         })["catch"](function (error) {
           _this3.showErrorNotification("Error al eliminar", "Conexión inválida");
@@ -103848,53 +103738,6 @@ var render = function () {
                           },
                           [
                             _c("div", { staticClass: "form-group" }, [
-                              _c("strong", [_vm._v("CURP")]),
-                              _vm.number != 2
-                                ? _c("label", { staticClass: "text-danger" }, [
-                                    _vm._v(" *"),
-                                  ])
-                                : _vm._e(),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.CURP,
-                                    expression: "user.CURP",
-                                  },
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "CURP",
-                                  placeholder: "Ejem. FEPM890204HASRRN08",
-                                  readonly: _vm.number == 2,
-                                },
-                                domProps: { value: _vm.user.CURP },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.user,
-                                      "CURP",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                            ]),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "d-inline col-lg-6 col-md-6 col-xs-12",
-                          },
-                          [
-                            _c("div", { staticClass: "form-group" }, [
                               _c("strong", [_vm._v("Teléfono")]),
                               _vm.number != 2
                                 ? _c("label", { staticClass: "text-danger" }, [
@@ -103934,9 +103777,7 @@ var render = function () {
                             ]),
                           ]
                         ),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
+                        _vm._v(" "),
                         _c(
                           "div",
                           {
@@ -104009,7 +103850,9 @@ var render = function () {
                             ]),
                           ]
                         ),
-                        _vm._v(" "),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
                         _c(
                           "div",
                           {
@@ -104061,64 +103904,6 @@ var render = function () {
                             ]),
                           ]
                         ),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "d-inline col-lg-6 col-md-6 col-xs-12",
-                          },
-                          [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("strong", [_vm._v("Estado civil")]),
-                              _vm.number != 2
-                                ? _c("label", { staticClass: "text-danger" }, [
-                                    _vm._v("\n                        *"),
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                [
-                                  _c(
-                                    "el-select",
-                                    {
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        filterable: "",
-                                        placeholder: "Seleccione",
-                                        disabled: _vm.number == 2,
-                                      },
-                                      model: {
-                                        value: _vm.user.marita_status,
-                                        callback: function ($$v) {
-                                          _vm.$set(
-                                            _vm.user,
-                                            "marita_status",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "user.marita_status",
-                                      },
-                                    },
-                                    _vm._l(_vm.options, function (item) {
-                                      return _c("el-option", {
-                                        key: item.value,
-                                        attrs: {
-                                          label: item.label,
-                                          value: item.value,
-                                        },
-                                      })
-                                    }),
-                                    1
-                                  ),
-                                ],
-                                1
-                              ),
-                            ]),
-                          ]
-                        ),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -104145,172 +103930,16 @@ var render = function () {
                                       readonly: _vm.number == 2,
                                     },
                                     model: {
-                                      value: _vm.user.birth_date,
+                                      value: _vm.user.birthdate,
                                       callback: function ($$v) {
-                                        _vm.$set(_vm.user, "birth_date", $$v)
+                                        _vm.$set(_vm.user, "birthdate", $$v)
                                       },
-                                      expression: "user.birth_date",
+                                      expression: "user.birthdate",
                                     },
                                   }),
                                 ],
                                 1
                               ),
-                            ]),
-                          ]
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c(
-                        "h5",
-                        { staticClass: "text-primary m-0 font-weight-bold" },
-                        [
-                          _vm._v(
-                            "\n                  Información de Trabajo\n                "
-                          ),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "d-inline col-lg-6 col-md-6 col-xs-12",
-                          },
-                          [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("strong", [_vm._v("Ocupación")]),
-                              _vm.number != 2
-                                ? _c("label", { staticClass: "text-danger" }, [
-                                    _vm._v(" *"),
-                                  ])
-                                : _vm._e(),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.occupation,
-                                    expression: "user.occupation",
-                                  },
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "occupation",
-                                  placeholder: "Ejem. Oftalmólogo ",
-                                  readonly: _vm.number == 2,
-                                },
-                                domProps: { value: _vm.user.occupation },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.user,
-                                      "occupation",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                            ]),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "d-inline col-lg-6 col-md-6 col-xs-12",
-                          },
-                          [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("strong", [_vm._v("Número de cédula")]),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.cetificate_number,
-                                    expression: "user.cetificate_number",
-                                  },
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "certificate_number",
-                                  name: "fathers_name",
-                                  step: "0.01",
-                                  placeholder: "Ingrese número de cédula",
-                                  readonly: _vm.number == 2,
-                                },
-                                domProps: { value: _vm.user.cetificate_number },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.user,
-                                      "cetificate_number",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                            ]),
-                          ]
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "d-inline col-lg-6 col-md-6 col-xs-12",
-                          },
-                          [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("strong", [_vm._v("Salario (Quincena)")]),
-                              _vm.number != 2
-                                ? _c("label", { staticClass: "text-danger" }, [
-                                    _vm._v(" *"),
-                                  ])
-                                : _vm._e(),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.salary,
-                                    expression: "user.salary",
-                                  },
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  name: "salary",
-                                  step: "0.01",
-                                  placeholder: "$",
-                                  readonly: _vm.number == 2,
-                                },
-                                domProps: { value: _vm.user.salary },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.user,
-                                      "salary",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
                             ]),
                           ]
                         ),
@@ -104562,49 +104191,11 @@ var render = function () {
             ]),
           ]),
         ]),
-        _vm._v(" "),
-        _vm.number != 0
-          ? _c("div", { staticClass: "container-fluid mt-5" }, [
-              _c(
-                "div",
-                { staticClass: "card shadow mb-5", attrs: { id: "" } },
-                [
-                  _c("div", { staticClass: "m-0'" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "card-body" },
-                      [
-                        this.detailsid != null
-                          ? _c("scheduleuser-component", {
-                              attrs: { userselected: this.detailsid },
-                            })
-                          : _vm._e(),
-                      ],
-                      1
-                    ),
-                  ]),
-                ]
-              ),
-            ])
-          : _vm._e(),
       ]
     ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header py-3" }, [
-      _c("h5", { staticClass: "text-primary font-weight-bold" }, [
-        _vm._v("Horario"),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
