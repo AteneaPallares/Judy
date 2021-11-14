@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <h2 class="text-dark m-4">Productos</h2>
+    <h2 class="text-dark m-4">Proveedores</h2>
     <div id="" class="card shadow">
       <div class="m-19">
         <div class="card-header py-3">
@@ -54,7 +54,7 @@
                     />
                   </th>
                   <th @click="sort(3)">
-                    Stock
+                    Empresa
                     <i
                       v-if="this.searchfield == 3 && this.asc == false"
                       class="text-success el-icon-caret-top"
@@ -65,7 +65,7 @@
                     />
                   </th>
                   <th @click="sort(4)">
-                    Precio
+                    Correo
                     <i
                       v-if="this.searchfield == 4 && this.asc == false"
                       class="text-success el-icon-caret-top"
@@ -91,10 +91,10 @@
                     {{ props.name }}
                   </td>
                   <td>
-                    {{ props.stock}}
+                    {{ props.enterprise}}
                   </td>
                   <td>
-                    {{ props.cost }}
+                    {{ props.email }}
                   </td>
                   <td class="m-0 p-0 w-10">
                     <div class="col-12 m-0">
@@ -161,7 +161,7 @@
                     />
                   </th>
                   <th @click="sort(3)">
-                    Stock
+                    Empresa
                     <i
                       v-if="this.searchfield == 3 && this.asc == false"
                       class="text-success el-icon-caret-top"
@@ -172,7 +172,7 @@
                     />
                   </th>
                   <th @click="sort(4)" class="w-25">
-                    Precio
+                    Correo
                     <i
                       v-if="this.searchfield == 4 && this.asc == false"
                       class="text-success el-icon-caret-top"
@@ -269,7 +269,7 @@ export default {
   },
   mounted() {
     axios
-      .get("/productos/all")
+      .get("/proveedores/all")
       .then((res) => {
         console.log(res.data);
         this.content = res.data;
@@ -289,12 +289,12 @@ export default {
   methods: {
     onClickEdit($idy) {
       const ediId = $idy;
-      window.location.href = "/productos/editar/" + ediId + "/";
+      window.location.href = "/proveedores/editar/" + ediId + "/";
       //this.$emit("edit", ediId);
     },
     onClickDetails($idy) {
       const ediId = $idy;
-      window.location.href = "/productos/detalle/" + ediId + "/";
+      window.location.href = "/proveedores/detalle/" + ediId + "/";
       //this.$emit("details", ediId);
     },
     foundIt(strword2, word2) {
@@ -318,10 +318,10 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.id, this.search)) {
             this.aux.push(value);
-          } else if (this.foundIt(value.cost, this.search)) {
+          } else if (this.foundIt(value.email, this.search)) {
             this.aux.push(value);
           } else if (
-            this.foundIt(value.stock,this.search
+            this.foundIt(value.enterprise,this.search
             )
           ) {
             this.aux.push(value);
@@ -350,9 +350,9 @@ export default {
       } else if ($op == 2) {
         this.sortaux("name");
       } else if ($op == 3) {
-        this.sortaux("stock");
+        this.sortaux("enterprise");
       } else if ($op == 4) {
-        this.sortaux("cost");
+        this.sortaux("email");
       }
       this.asc = !this.asc;
       this.actual = 0;
@@ -378,7 +378,7 @@ export default {
     },
     onClickDelete($idc, $iddel, $userd) {
       this.$confirm(
-        "Realmente desea eliminar al producto " + $userd.name,
+        "Realmente desea eliminar al proveedore " + $userd.name,
         "Alerta",
         {
           confirmButtonText: "Continuar",
@@ -389,18 +389,18 @@ export default {
         .then(() => {
         
           axios
-            .delete(`/productos/${$idc}/`)
+            .delete(`/proveedores/${$idc}/`)
             .then((response) => {
               if (response.data != 1) {
                 this.showErrorNotification(
                   "Error al eliminar",
-                  "El producto se encuentra asignado"
+                  "El proveedore se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification("Eliminar", "producto eliminado");
+                this.showSuccessNotification("Eliminar", "proveedore eliminado");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
-                axios.get("/productos/all").then((res) => {
+                axios.get("/proveedores/all").then((res) => {
                   this.content = res.data;
                   this.aux = this.content;
                   this.max = Math.ceil(this.content.length / this.pagesize);
@@ -440,7 +440,7 @@ export default {
       });
     },
     add() {
-      window.location.href = "/productos/agregar";
+      window.location.href = "/proveedores/agregar";
     },
   },
 };

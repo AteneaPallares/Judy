@@ -30,6 +30,8 @@
  Vue.component('clientscreate-component', require('./components/Clients/create.vue').default);
  Vue.component('productsindex-component', require('./components/Products/index.vue').default);
  Vue.component('productscreate-component', require('./components/Products/create.vue').default);
+ Vue.component('suppliersindex-component', require('./components/Suppliers/index.vue').default);
+ Vue.component('supplierscreate-component', require('./components/Suppliers/create.vue').default);
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to

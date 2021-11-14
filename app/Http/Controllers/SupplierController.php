@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller {
+class SupplierController extends Controller {
     //
     public function __construct() {
         $this -> middleware('auth');
@@ -21,13 +21,13 @@ class ProductController extends Controller {
     public function index() {
         //
 
-        return view('products.index');
+        return view('suppliers.index');
     }
 
     public function showall() {
-        //return Product::with('roles','schedule')->get();
-        return Product::all();
-        //return Product::all();
+        //return Supplier::with('roles','schedule')->get();
+        return Supplier::all();
+        //return Supplier::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -36,7 +36,7 @@ class ProductController extends Controller {
      */
     public function create() {
         //
-        return view('products.create');
+        return view('suppliers.create');
     }
 
     /**
@@ -48,24 +48,24 @@ class ProductController extends Controller {
     public function store(Request $request) {
         //
         if ($request -> deleteImage != NULL) {
-            $product = Product:: findOrFail($request -> deleteImage);
-            if ($product -> img != null) {
-                Storage:: delete ('public/'.$product -> img);
+            $supplier = Supplier:: findOrFail($request -> deleteImage);
+            if ($supplier -> img != null) {
+                Storage:: delete ('public/'.$supplier -> img);
             }
-            $product -> img=null;
-            $product -> save();
+            $supplier -> img=null;
+            $supplier -> save();
             return 1;
         }
         if ($request -> editImage != NULL) {
             if ($request -> hasFile('imagen')) {
-                $product = Product:: findOrFail($request -> editImage);
-                Storage:: delete ('public/productos/'.$product -> img);
-                $stri = "productos".($product -> id).'.'.$request -> file('imagen') -> extension();;
-                $path = $request -> imagen -> storeAs('productos', $stri, 'public');
-                $product -> img=$path;
+                $supplier = Supplier:: findOrFail($request -> editImage);
+                Storage:: delete ('public/proveedores/'.$supplier -> img);
+                $stri = "proveedores".($supplier -> id).'.'.$request -> file('imagen') -> extension();;
+                $path = $request -> imagen -> storeAs('proveedores', $stri, 'public');
+                $supplier -> img=$path;
                 DB:: beginTransaction();
                 DB:: commit();
-                $product -> save();
+                $supplier -> save();
                 return 7;
             }
             return 3;
@@ -76,25 +76,18 @@ class ProductController extends Controller {
             if ($request -> id != null) {
 
                 $edit = true;
-                $new = Product:: findOrFail($request -> id);
+                $new = Supplier:: findOrFail($request -> id);
             } else {
 
-                $new = new Product();
+                $new = new Supplier();
             }
             $new -> name=$request -> name;
-            $new -> stock=$request -> stock;
-            $new -> description=$request -> description;
-            $new -> cost=$request -> cost;
-          
-          
-           // $new -> birthdate=$request -> birthdate;
-            //$new -> phone=$request -> phone;
-           // $new -> gender=$request -> gender;
-          //  $new -> status=$request -> status;
-           // $new -> id_role=$request -> role;
+            $new -> enterprise=$request -> enterprise;
+            $new -> email=$request -> email;
+            $new -> phone=$request -> phone;
             if ($request -> hasFile('imagen')) {
-                $stri = "productos".($product -> id).'.'.$request -> file('imagen') -> extension();;
-                $path = $request -> imagen -> storeAs('productos', $stri, 'public');
+                $stri = "proveedores".($supplier -> id).'.'.$request -> file('imagen') -> extension();;
+                $path = $request -> imagen -> storeAs('proveedores', $stri, 'public');
                 $new -> img=$path;
             }
             $new -> save();
@@ -110,9 +103,9 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function showone($id) {
-        //$product=Product::with("roles")->findOrFail($id);
-        $product = Product:: findOrFail($id);
-        return $product;
+        //$supplier=Supplier::with("roles")->findOrFail($id);
+        $supplier = Supplier:: findOrFail($id);
+        return $supplier;
     }
     public function show($id) {
         //
@@ -120,7 +113,7 @@ class ProductController extends Controller {
         $params = [
             'detailN' => $detailId
         ];
-        return view('Products/detail', $params);
+        return view('suppliers/detail', $params);
     }
 
 
@@ -142,7 +135,7 @@ class ProductController extends Controller {
         $params = [
             'detailN' => $detailId
         ];
-        return view('Products/edit', $params);
+        return view('suppliers/edit', $params);
 
     }
     /**
@@ -155,8 +148,8 @@ class ProductController extends Controller {
     public function update(Request $request, $id) {
         //
         try {
-            $product = Product:: findOrFail($id);
-            $product -> save();
+            $supplier = Supplier:: findOrFail($id);
+            $supplier -> save();
         } catch (\Illuminate\Database\QueryException $e) {
             return $e;
         }
@@ -172,11 +165,11 @@ class ProductController extends Controller {
         //
         if (request() -> isMethod("DELETE")) {
             try {
-                $product = Product:: findOrFail($id);
-                if ($product -> img != null) {
-                    Storage:: delete ('public/'.$product -> img);
+                $supplier = Supplier:: findOrFail($id);
+                if ($supplier -> img != null) {
+                    Storage:: delete ('public/'.$supplier -> img);
                 }
-                $product -> delete ();
+                $supplier -> delete ();
                 return 1;
             } catch (\Illuminate\Database\QueryException $e) {
                 return 0;

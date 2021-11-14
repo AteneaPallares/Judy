@@ -16,19 +16,19 @@
                   v-if="number == 0"
                   class="text-primary m-0 font-weight-bold"
                 >
-                  Registro de Producto
+                  Registro de proveedor
                 </h5>
                 <h5
                   v-if="number == 1"
                   class="text-primary m-0 font-weight-bold"
                 >
-                  Editar Producto
+                  Editar proveedor
                 </h5>
                 <h5
                   v-if="number == 2"
                   class="text-primary m-0 font-weight-bold"
                 >
-                  Detalles de Producto
+                  Detalles de proveedor
                 </h5>
               </div>
               <div class="m-2" v-show="number != 2">
@@ -40,7 +40,7 @@
                   >Guardar todo</el-button
                 >
                 <el-button v-else type="success" @click="edit()" plain
-                  >Registrar Producto</el-button
+                  >Registrar proveedor</el-button
                 >
               </div>
               <div class="m-2" v-show="number == 2">
@@ -105,7 +105,7 @@
                           class="form-control"
                           type="text"
                           name="name"
-                          v-model="product.name"
+                          v-model="user.name"
                           placeholder="Nombre(s) Apellido(s)"
                           :readonly="number == 2"
                         />
@@ -113,14 +113,14 @@
                     </div>
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
-                        <strong>Descripción</strong
+                        <strong>Empresa</strong
                         ><label class="text-danger" v-if="number != 2"> *</label
                         ><input
                           class="form-control"
                           type="text"
                           name="address"
                           placeholder="Ejem. Jalisco, Guadalajara, Col. Yañez El verde #89"
-                          v-model="product.description"
+                          v-model="user.enterprise"
                           :readonly="number == 2"
                         />
                       </div>
@@ -129,28 +129,28 @@
                   <div class="row">
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
-                        <strong>Stock</strong
+                        <strong>Teléfono</strong
                         ><label class="text-danger" v-if="number != 2"> *</label
                         ><input
                           class="form-control"
-                          type="number"
+                          type="text"
                           name="phone"
                           placeholder="Ejem. (+52) 3345234532"
-                          v-model="product.stock"
+                          v-model="user.phone"
                           :readonly="number == 2"
                         />
                       </div>
                     </div>
-                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
-                        <strong>Costo</strong
+                        <strong>Correo</strong
                         ><label class="text-danger" v-if="number != 2"> *</label
                         ><input
                           class="form-control"
-                          type="number"
-                          name="phone"
-                          placeholder="Ejem. (+52) 3345234532"
-                          v-model="product.cost"
+                          type="text"
+                          name="email"
+                          placeholder="Ejem. example@examp.com"
+                          v-model="user.email"
                           :readonly="number == 2"
                         />
                       </div>
@@ -182,13 +182,13 @@ export default {
       images: [],
       nuevo: [],
       show: false,
-      product: {
+      user: {
         name: null,
+        email: null,
         img: null,
-        description:null,
-        stock:null,
-        cost:null,
-        id:null
+        address: null,
+        phone: null,
+        gender: null,
       },
       radio1: "Hombre",
       confirmationp: null,
@@ -236,23 +236,35 @@ export default {
     };
   },
   mounted() {
+    axios.get("/roles").then((res) => {
+      this.roles = res.data;
+      console.log(this.roles);
+    });
+
     if (this.number != 0) {
-      axios.get(`/productos/detalleone/${this.editid}`).then((response) => {
+      axios.get(`/proveedores/detalleone/${this.editid}`).then((response) => {
         console.log(response.data);
-        this.product = response.data;
-        if (this.product.img == null) {
+
+        this.user = response.data;
+        this.nuevo = this.user.id_role;
+        if (this.user.gender == 1) {
+          this.user.gender = "1";
+        } else {
+          this.user.gender = "0";
+        }
+        if (this.user.img == null) {
           document.getElementById("pic").src = "../../../../storage/drop.png";
           document.getElementById("deleteImg").style.visibility = "hidden";
         } else {
           document.getElementById("pic").src =
-            "../../../../storage/" + this.product.img;
+            "../../../../storage/" + this.user.img;
           if (this.number != 2) {
             document.getElementById("deleteImg").style.visibility = "visible";
           }
         }
       });
     }
-    if (this.product.img == null) {
+    if (this.user.img == null) {
       document.getElementById("pic").src = "../../../../storage/drop.png";
       document.getElementById("deleteImg").style.visibility = "hidden";
     }
@@ -262,45 +274,45 @@ export default {
       return true;
       if (
         !(
-          this.product.name != null &&
-          this.product.address != null &&
-          this.product.CURP != null &&
-          this.product.phone != null &&
-          this.product.gender != null &&
-          this.product.status != null &&
-          this.product.marita_status != null &&
-          this.product.birth_date != null &&
-          this.product.ns != null &&
-          this.product.weight != null &&
-          this.product.height != null &&
-          this.product.phone_sec != null &&
-          this.product.occupation != null &&
-          this.product.salary != null &&
-          this.product.email != null &&
+          this.user.name != null &&
+          this.user.address != null &&
+          this.user.CURP != null &&
+          this.user.phone != null &&
+          this.user.gender != null &&
+          this.user.status != null &&
+          this.user.marita_status != null &&
+          this.user.birth_date != null &&
+          this.user.ns != null &&
+          this.user.weight != null &&
+          this.user.height != null &&
+          this.user.phone_sec != null &&
+          this.user.occupation != null &&
+          this.user.salary != null &&
+          this.user.email != null &&
           this.nuevo != null &&
           (this.show == false ||
-            (this.product.password != null && this.confirmationp != null))
+            (this.user.password != null && this.confirmationp != null))
         )
       ) {
         this.showErrorNotification(
-          "Agregando Producto",
+          "Agregando proveedor",
           "Complete la información de los campos requeridos"
         );
         return false;
       }
       if (
         this.show == true &&
-        (this.product.password == null || this.confirmationp == null)
+        (this.user.password == null || this.confirmationp == null)
       ) {
         this.showErrorNotification(
-          "Agregando Producto",
+          "Agregando proveedor",
           "Ingrese una contraseña"
         );
         return false;
       }
-      if (this.show == true && this.product.password != this.confirmationp) {
+      if (this.show == true && this.user.password != this.confirmationp) {
         this.showErrorNotification(
-          "Agregando Producto",
+          "Agregando proveedor",
           "Las contraseñas no coinciden"
         );
         return false;
@@ -308,18 +320,18 @@ export default {
       return true;
     },
     edit() {
-      console.log(this.product);
+      console.log(this.user);
       if (this.validate()) {
-        axios.post("/productos", this.product).then((response) => {
+        axios.post("/proveedores", this.user).then((response) => {
           if (_.isNumber(response.data.response)) {
             this.editid = response.data.response;
             this.showSuccessNotification(
-              "Agregando Producto",
+              "Agregando proveedor",
               "Información guardada con éxito"
             );
           } else {
             this.showErrorNotification(
-              "Agregando Producto",
+              "Agregando proveedor",
               response.data.response
             );
             return;
@@ -350,11 +362,11 @@ export default {
             params.append("deleteImage", this.editid);
           }
           console.log(params);
-          axios.post("/productos", params).then((response) => {
+          axios.post("/proveedores", params).then((response) => {
             console.log(response);
             if (_.isNumber(response.data)) {
               this.showSuccessNotification(
-                "Agregando Producto",
+                "Agregando proveedor",
                 "Imagen guardada con éxito"
               );
             }
@@ -418,16 +430,16 @@ export default {
       document.getElementById("pic").src = "../../../../storage/drop.png";
     },
     editLink() {
-      window.location = "/productos/editar/" + this.editid;
+      window.location = "/proveedores/editar/" + this.editid;
     },
     ret() {
-      window.location = "/productos";
+      window.location = "/proveedores";
     },
     addShow() {
       this.show = true;
     },
     showchange() {
-      console.log(this.product);
+      console.log(this.user);
     },
   },
 };
