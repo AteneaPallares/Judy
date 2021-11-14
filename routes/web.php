@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('catalogue');
 });
 
 Auth::routes();
@@ -56,3 +56,11 @@ Route::get('/proveedores/detalleone/{id}','App\Http\Controllers\SupplierControll
 Route::get('/proveedores/agregar','App\Http\Controllers\SupplierController@create')->name('proveedores.create');
 Route::get('/proveedores/detalle/{id}','App\Http\Controllers\SupplierController@show')->name('proveedores.show');
 Route::apiResource('proveedores', 'App\Http\Controllers\SupplierController');
+
+Route::get('/iva','App\Http\Controllers\IvaController@index')->name('iva.index');
+Route::get('/iva/all','App\Http\Controllers\IvaController@showall')->name('iva.showall');
+Route::get('/iva/editar/{id}','App\Http\Controllers\IvaController@showedit')->name('iva.edit');
+Route::get('/iva/detalleone/{id}','App\Http\Controllers\IvaController@showone')->name('iva.nuevo');
+Route::get('/iva/agregar','App\Http\Controllers\IvaController@create')->name('iva.create');
+Route::get('/iva/detalle/{id}','App\Http\Controllers\IvaController@show')->name('iva.show');
+Route::apiResource('iva', 'App\Http\Controllers\IvaController');

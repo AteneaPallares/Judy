@@ -36,7 +36,6 @@ class Iva extends Model
 
 	protected $fillable = [
 		'porcentage',
-		'start',
-		'end_date'
+		'start'
 	];
 }

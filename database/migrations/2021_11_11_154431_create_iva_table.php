@@ -17,7 +17,6 @@ class CreateIvaTable extends Migration
             $table->id();
             $table->double('porcentage');
             $table->timestamp('start');
-            $table->timestamp('end_date');
             $table->timestamps();
         });
     }

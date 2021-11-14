@@ -15,39 +15,39 @@
         </li>
         
         <li  class="nav-item">
-            <a class="nav-link" href="/usuarios/"
+            <a class="nav-link" href="/empleados/"
               ><i class="fas fa-address-card"></i><span>Empleados</span></a
             >
         </li>
         
         
         <li class="nav-item">
-          <a class="nav-link" href="/pacientes/"
+          <a class="nav-link" href="/clientes/"
             ><i class="el-icon-user-solid"></i><span>Clientes</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/historiales/"
+          <a class="nav-link" href="/ventas/"
             ><i class="el-icon-folder"></i><span>Ventas</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/areas/"
+          <a class="nav-link" href="/proveedores/"
             ><i class="el-icon-map-location"></i><span>Proveedores</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/horarios/"
+          <a class="nav-link" href="/productos/"
             ><i class="el-icon-takeaway-box"></i><span>Productos</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/inventario/"
+          <a class="nav-link" href="/pedidos/"
             ><i class="el-icon-suitcase"></i><span>Pedidos</span></a
           >
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="/inventario/"
+          <a class="nav-link" href="/iva/"
             ><i class="el-icon-date"></i><span>IVA</span></a
           >
         </li>
