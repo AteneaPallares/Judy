@@ -77,6 +77,11 @@ Route::get('/ventas/agregar','App\Http\Controllers\SaleController@create')->name
 Route::get('/ventas/detalle/{id}','App\Http\Controllers\SaleController@show')->name('ventas.show');
 Route::apiResource('ventas', 'App\Http\Controllers\SaleController');
 
+Route::get('/dashboard','App\Http\Controllers\DashBoardController@index')->name('dashboard.index');
+Route::get('/dashboard/all','App\Http\Controllers\DashBoardController@showall')->name('dashboard.showall');
+Route::get('/dashboard/print','App\Http\Controllers\DashBoardController@print')->name('dashboard.print');
+
+
 Route::get('/pedidos','App\Http\Controllers\OrderController@index')->name('pedidos.index');
 Route::get('/pedidos/all','App\Http\Controllers\OrderController@showall')->name('pedidos.showall');
 Route::get('/pedidos/editar/{id}','App\Http\Controllers\OrderController@showedit')->name('pedidos.edit');

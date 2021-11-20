@@ -39,7 +39,9 @@
  Vue.component('salescreate-component', require('./components/Sales/create.vue').default);
  Vue.component('ordersindex-component', require('./components/Orders/index.vue').default);
  Vue.component('orderscreate-component', require('./components/Orders/create.vue').default);
- 
+ Vue.component('dashboard-component', require('./components/DashBoard/index.vue').default);
+ Vue.component('cardinfo-component', require('./components/DashBoard/cardinf.vue').default);
+
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application

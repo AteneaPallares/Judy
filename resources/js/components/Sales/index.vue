@@ -43,7 +43,7 @@
                       />
                     </th>
                     <th @click="sort(2)" class="w-25">
-                      Nombre cliente
+                      Empleado
                       <i
                         v-show="this.searchfield == 2 && this.asc == false"
                         class="text-success el-icon-caret-top"
@@ -54,7 +54,7 @@
                       />
                     </th>
                     <th @click="sort(3)">
-                      Nombre empleado
+                      Cliente
                       <i
                         v-if="this.searchfield == 3 && this.asc == false"
                         class="text-success el-icon-caret-top"
@@ -150,7 +150,7 @@
                       />
                     </th>
                     <th @click="sort(2)" class="w-25">
-                      Nombre empleado
+                      Empleado
                       <i
                         v-show="this.searchfield == 2 && this.asc == false"
                         class="text-success el-icon-caret-top"
@@ -161,7 +161,7 @@
                       />
                     </th>
                     <th @click="sort(3)">
-                      Nombre cliente
+                      Cliente
                       <i
                         v-if="this.searchfield == 3 && this.asc == false"
                         class="text-success el-icon-caret-top"

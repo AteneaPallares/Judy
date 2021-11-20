@@ -136,7 +136,7 @@
                     />
                   </th>
                   <th @click="sort(2)" class="w-25">
-                    Nombre
+                    Porcentaje
                     <i
                       v-show="this.searchfield == 2 && this.asc == false"
                       class="text-success el-icon-caret-top"

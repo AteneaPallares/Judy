@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+    <link href="css/mstyles.css" rel="stylesheet">
     <link rel="icon" href="images/logo.png">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -128,7 +129,7 @@
                        <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
                        
                        @else
-                        <li class="nav-item"><a href="/empleados" class="nav-link">Administrar</a></li>
+                        <li class="nav-item"><a href="/dashboard" class="nav-link">Administrar</a></li>
                         <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
                         @endguest
                     </ul>
