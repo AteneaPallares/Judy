@@ -35,7 +35,9 @@
  Vue.component('ivaindex-component', require('./components/IVA/index.vue').default);
  Vue.component('ivacreate-component', require('./components/IVA/create.vue').default);
  Vue.component('catalog-component', require('./components/Catalog/index.vue').default);
-
+ Vue.component('salesindex-component', require('./components/Sales/index.vue').default);
+ Vue.component('salescreate-component', require('./components/Sales/create.vue').default);
+ 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application

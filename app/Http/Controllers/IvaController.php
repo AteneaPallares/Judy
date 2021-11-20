@@ -90,6 +90,9 @@ class IvaController extends Controller
         return view('iva/edit',$params);
 
     }
+    public function getactual(){
+        return IVA::orderBy('start', 'asc')->get();
+    }
     /**
      * Show the form for editing the specified resource.
      *

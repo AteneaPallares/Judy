@@ -37,6 +37,14 @@ class Sale extends Model
 		'id_client'
 	];
 
+	public function client()
+	{
+		return $this->belongsTo(Client::class, 'id_client');
+	}
+	public function employee()
+	{
+		return $this->belongsTo(User::class, 'id_employee');
+	}
 	public function details_sales()
 	{
 		return $this->hasMany(DetailsSale::class, 'id_sales');
