@@ -76,3 +76,11 @@ Route::get('/ventas/detalleone/{id}','App\Http\Controllers\SaleController@showon
 Route::get('/ventas/agregar','App\Http\Controllers\SaleController@create')->name('ventas.create');
 Route::get('/ventas/detalle/{id}','App\Http\Controllers\SaleController@show')->name('ventas.show');
 Route::apiResource('ventas', 'App\Http\Controllers\SaleController');
+
+Route::get('/pedidos','App\Http\Controllers\OrderController@index')->name('pedidos.index');
+Route::get('/pedidos/all','App\Http\Controllers\OrderController@showall')->name('pedidos.showall');
+Route::get('/pedidos/editar/{id}','App\Http\Controllers\OrderController@showedit')->name('pedidos.edit');
+Route::get('/pedidos/detalleone/{id}','App\Http\Controllers\OrderController@showone')->name('pedidos.nuevo');
+Route::get('/pedidos/agregar','App\Http\Controllers\OrderController@create')->name('pedidos.create');
+Route::get('/pedidos/detalle/{id}','App\Http\Controllers\OrderController@show')->name('pedidos.show');
+Route::apiResource('pedidos', 'App\Http\Controllers\OrderController');

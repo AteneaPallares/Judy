@@ -39,7 +39,7 @@ class Order extends Model
 		'id_supplier'
 	];
 
-	public function user()
+	public function employee()
 	{
 		return $this->belongsTo(User::class, 'id_employee');
 	}

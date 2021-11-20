@@ -1,7 +1,7 @@
-Route::get('/ventas','App\Http\Controllers\SaleController@index')->name('ventas.index');
-Route::get('/ventas/all','App\Http\Controllers\SaleController@showall')->name('ventas.showall');
-Route::get('/ventas/editar/{id}','App\Http\Controllers\SaleController@showedit')->name('ventas.edit');
-Route::get('/ventas/detalleone/{id}','App\Http\Controllers\SaleController@showone')->name('ventas.nuevo');
-Route::get('/ventas/agregar','App\Http\Controllers\SaleController@create')->name('ventas.create');
-Route::get('/ventas/detalle/{id}','App\Http\Controllers\SaleController@show')->name('ventas.show');
-Route::apiResource('ventas', 'App\Http\Controllers\SaleController');
+Route::get('/pedidos','App\Http\Controllers\OrderController@index')->name('pedidos.index');
+Route::get('/pedidos/all','App\Http\Controllers\OrderController@showall')->name('pedidos.showall');
+Route::get('/pedidos/editar/{id}','App\Http\Controllers\OrderController@showedit')->name('pedidos.edit');
+Route::get('/pedidos/detalleone/{id}','App\Http\Controllers\OrderController@showone')->name('pedidos.nuevo');
+Route::get('/pedidos/agregar','App\Http\Controllers\OrderController@create')->name('pedidos.create');
+Route::get('/pedidos/detalle/{id}','App\Http\Controllers\OrderController@show')->name('pedidos.show');
+Route::apiResource('pedidos', 'App\Http\Controllers\OrderController');
