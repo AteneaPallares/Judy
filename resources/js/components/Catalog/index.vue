@@ -64,14 +64,15 @@ export default {
     };
   },
   mounted() {
-    axios.get("/productos").then((res) => {
+    axios.get("/productos/all").then((res) => {
       this.allproducts = res.data;
       console.log(this.allproducts);
     });
   },
   methods: {
     getVal(prop) {
-      return "/storage/" + prop.image;
+
+      return "../../../../storage/" + prop.img;
     },send(prop){
         window.location="/productos/"+prop.id;
     }

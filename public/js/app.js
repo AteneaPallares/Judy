@@ -3801,14 +3801,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/productos").then(function (res) {
+    axios.get("/productos/all").then(function (res) {
       _this.allproducts = res.data;
       console.log(_this.allproducts);
     });
   },
   methods: {
     getVal: function getVal(prop) {
-      return "/storage/" + prop.image;
+      return "../../../../storage/" + prop.img;
     },
     send: function send(prop) {
       window.location = "/productos/" + prop.id;
