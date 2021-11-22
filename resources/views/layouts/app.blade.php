@@ -97,7 +97,7 @@
                                             <a class="dropdown-item" href="/dashboard/">
                                                 Home
                                             </a>
-                                            <a class="dropdown-item" href="{{'/usuarios/'.Auth::user()->id}}">
+                                            <a class="dropdown-item" href="{{'/empleados/'.Auth::user()->id}}">
                                                 Mi cuenta
                                             </a>
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

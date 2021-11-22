@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller {
     //
@@ -71,6 +72,17 @@ class ClientController extends Controller {
             return 3;
         }
         try {
+            try {
+                $validator = Validator:: make($request -> all(), [
+                    'name' => 'required|max:255|regex:/^[\pL\s]+$/u',
+                    'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
+                ]);
+                if ($validator -> fails()) {
+                    return ['errors'=> $validator -> errors()];
+                }
+            } catch (\Exception $e) {
+                return ['response'=> $e];
+            }
             $edit = false;
             $new = [];
             if ($request -> id != null) {

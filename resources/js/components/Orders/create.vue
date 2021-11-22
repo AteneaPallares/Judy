@@ -84,7 +84,7 @@
                     class="col-lg-6 col-md-6 col-xs-8 mb-2"
                   >
                     <strong>Producto</strong>
-                    <el-select
+                    <el-select @change="updateP"
                       style="width: 100%"
                       v-model="auxp"
                       filterable
@@ -111,6 +111,21 @@
                         type="number"
                         name="name"
                         v-model="auxq"
+                        :readonly="number == 2"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    v-if="number != 2"
+                    class="d-inline col-lg-6 col-md-6 col-xs-12"
+                  >
+                    <div class="form-group">
+                      <strong>Precio</strong
+                      ><input
+                        class="form-control"
+                        type="number"
+                        name="name"
+                        v-model="auxprice"
                         :readonly="number == 2"
                       />
                     </div>
@@ -200,6 +215,7 @@ export default {
       auxp: null,
       auxq: null,
       response: [],
+      auxprice:null,
       day_selected: null,
       products: null,
       iva: null,
@@ -381,6 +397,10 @@ export default {
         type: "error",
       });
     },
+    updateP(){
+      var index = this.products.findIndex((i) => i.id === this.auxp);
+      this.auxprice=this.products[index].cost;
+    },
     getDateO(dat) {
       var d = new Date(dat);
       var datestring =
@@ -408,9 +428,14 @@ export default {
         this.showErrorNotification("Agregando", "Faltan datos");
         return;
       }
+      if(this.auxq<0){
+        this.showErrorNotification("Agregando", "El valor debe ser mayor a 0");
+        return;
+      }
       var index2 = this.actualorders.findIndex((i) => i.id === this.auxp);
       if (index2 != -1) {
         this.actualorders[index2].quantity += parseInt(this.auxq);
+        this.actualorders[index2].price=this.auxprice;
         return;
       }
       var index = this.products.findIndex((i) => i.id === this.auxp);
@@ -418,7 +443,7 @@ export default {
         id: this.auxp,
         quantity: parseInt(this.auxq),
         name: this.products[index].name,
-        price: this.products[index].cost,
+        price: this.auxprice,
       });
       console.log(this.actualorders);
     },

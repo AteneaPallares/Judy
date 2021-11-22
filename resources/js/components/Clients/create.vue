@@ -303,49 +303,23 @@ export default {
   },
   methods: {
     validate() {
-      return true;
       if (
         !(
           this.user.name != null &&
+          this.user.name != "" &&
           this.user.address != null &&
-          this.user.CURP != null &&
+          this.user.address != "" &&
           this.user.phone != null &&
+          this.user.phone != "" &&
           this.user.gender != null &&
-          this.user.status != null &&
-          this.user.marita_status != null &&
-          this.user.birth_date != null &&
-          this.user.ns != null &&
-          this.user.weight != null &&
-          this.user.height != null &&
-          this.user.phone_sec != null &&
-          this.user.occupation != null &&
-          this.user.salary != null &&
+          this.user.gender != "" &&
           this.user.email != null &&
-          this.nuevo != null &&
-          (this.show == false ||
-            (this.user.password != null && this.confirmationp != null))
+          this.user.email != ""
         )
       ) {
         this.showErrorNotification(
           "Agregando cliente",
           "Complete la información de los campos requeridos"
-        );
-        return false;
-      }
-      if (
-        this.show == true &&
-        (this.user.password == null || this.confirmationp == null)
-      ) {
-        this.showErrorNotification(
-          "Agregando cliente",
-          "Ingrese una contraseña"
-        );
-        return false;
-      }
-      if (this.show == true && this.user.password != this.confirmationp) {
-        this.showErrorNotification(
-          "Agregando cliente",
-          "Las contraseñas no coinciden"
         );
         return false;
       }
@@ -361,11 +335,36 @@ export default {
               "Agregando cliente",
               "Información guardada con éxito"
             );
+            if (this.number == 0) {
+              this.user = {
+                name: null,
+                email: null,
+                img: null,
+                address: null,
+                phone: null,
+                gender: null,
+              };
+              this.deleteImg();
+            }
+           
+          } else if (response.data.errors) {
+            console.log(response.data.errors);
+            let exampleObj = response.data.errors;
+            let errors = "";
+            for (let key in exampleObj) {
+              if (exampleObj.hasOwnProperty(key)) {
+                let value = exampleObj[key];
+                console.log(key, value[0]);
+                errors += "*";
+                errors += value[0];
+                errors += "\n\n";
+              }
+            }
+            console.log(errors);
+            this.showErrorNotification("Validación", errors);
+            return;
           } else {
-            this.showErrorNotification(
-              "Agregando cliente",
-              response.data.response
-            );
+            this.showErrorNotification("Error", response.data.response);
             return;
           }
           console.log(this.editid);

@@ -183,12 +183,12 @@ export default {
       nuevo: [],
       show: false,
       user: {
+        id: null,
         name: null,
         email: null,
         img: null,
-        address: null,
         phone: null,
-        gender: null,
+        enterprise: null,
       },
       radio1: "Hombre",
       confirmationp: null,
@@ -271,27 +271,16 @@ export default {
   },
   methods: {
     validate() {
-      return true;
       if (
         !(
           this.user.name != null &&
-          this.user.address != null &&
-          this.user.CURP != null &&
+          this.user.name != "" &&
+          this.user.enterprise != null &&
+          this.user.enterprise != "" &&
           this.user.phone != null &&
-          this.user.gender != null &&
-          this.user.status != null &&
-          this.user.marita_status != null &&
-          this.user.birth_date != null &&
-          this.user.ns != null &&
-          this.user.weight != null &&
-          this.user.height != null &&
-          this.user.phone_sec != null &&
-          this.user.occupation != null &&
-          this.user.salary != null &&
+          this.user.phone != "" &&
           this.user.email != null &&
-          this.nuevo != null &&
-          (this.show == false ||
-            (this.user.password != null && this.confirmationp != null))
+          this.user.email != ""
         )
       ) {
         this.showErrorNotification(
@@ -300,23 +289,7 @@ export default {
         );
         return false;
       }
-      if (
-        this.show == true &&
-        (this.user.password == null || this.confirmationp == null)
-      ) {
-        this.showErrorNotification(
-          "Agregando proveedor",
-          "Ingrese una contraseña"
-        );
-        return false;
-      }
-      if (this.show == true && this.user.password != this.confirmationp) {
-        this.showErrorNotification(
-          "Agregando proveedor",
-          "Las contraseñas no coinciden"
-        );
-        return false;
-      }
+
       return true;
     },
     edit() {
@@ -329,11 +302,35 @@ export default {
               "Agregando proveedor",
               "Información guardada con éxito"
             );
+            if (this.number == 0) {
+              this.user = {
+                id: null,
+                name: null,
+                email: null,
+                img: null,
+                phone: null,
+                enterprise: null,
+              };
+              this.deleteImg();
+            }
+          } else if (response.data.errors) {
+            console.log(response.data.errors);
+            let exampleObj = response.data.errors;
+            let errors = "";
+            for (let key in exampleObj) {
+              if (exampleObj.hasOwnProperty(key)) {
+                let value = exampleObj[key];
+                console.log(key, value[0]);
+                errors += "*";
+                errors += value[0];
+                errors += "\n\n";
+              }
+            }
+            console.log(errors);
+            this.showErrorNotification("Validación", errors);
+            return;
           } else {
-            this.showErrorNotification(
-              "Agregando proveedor",
-              response.data.response
-            );
+            this.showErrorNotification("Error", response.data.response);
             return;
           }
           console.log(this.editid);

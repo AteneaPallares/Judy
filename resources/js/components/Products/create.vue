@@ -141,7 +141,7 @@
                         />
                       </div>
                     </div>
-                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Costo</strong
                         ><label class="text-danger" v-if="number != 2"> *</label
@@ -185,10 +185,10 @@ export default {
       product: {
         name: null,
         img: null,
-        description:null,
-        stock:null,
-        cost:null,
-        id:null
+        description: null,
+        stock: null,
+        cost: null,
+        id: null,
       },
       radio1: "Hombre",
       confirmationp: null,
@@ -259,49 +259,21 @@ export default {
   },
   methods: {
     validate() {
-      return true;
       if (
         !(
           this.product.name != null &&
-          this.product.address != null &&
-          this.product.CURP != null &&
-          this.product.phone != null &&
-          this.product.gender != null &&
-          this.product.status != null &&
-          this.product.marita_status != null &&
-          this.product.birth_date != null &&
-          this.product.ns != null &&
-          this.product.weight != null &&
-          this.product.height != null &&
-          this.product.phone_sec != null &&
-          this.product.occupation != null &&
-          this.product.salary != null &&
-          this.product.email != null &&
-          this.nuevo != null &&
-          (this.show == false ||
-            (this.product.password != null && this.confirmationp != null))
+          this.product.name != "" &&
+          this.product.stock != null &&
+          this.product.stock != "" &&
+          this.product.description != null &&
+          this.product.description != "" &&
+          this.product.cost != null &&
+          this.product.cost != ""
         )
       ) {
         this.showErrorNotification(
           "Agregando Producto",
           "Complete la información de los campos requeridos"
-        );
-        return false;
-      }
-      if (
-        this.show == true &&
-        (this.product.password == null || this.confirmationp == null)
-      ) {
-        this.showErrorNotification(
-          "Agregando Producto",
-          "Ingrese una contraseña"
-        );
-        return false;
-      }
-      if (this.show == true && this.product.password != this.confirmationp) {
-        this.showErrorNotification(
-          "Agregando Producto",
-          "Las contraseñas no coinciden"
         );
         return false;
       }
@@ -317,11 +289,35 @@ export default {
               "Agregando Producto",
               "Información guardada con éxito"
             );
+            if (this.number == 0) {
+              this.product = {
+                name: null,
+                img: null,
+                description: null,
+                stock: null,
+                cost: null,
+                id: null,
+              };
+              this.deleteImg();
+            }
+          } else if (response.data.errors) {
+            console.log(response.data.errors);
+            let exampleObj = response.data.errors;
+            let errors = "";
+            for (let key in exampleObj) {
+              if (exampleObj.hasOwnProperty(key)) {
+                let value = exampleObj[key];
+                console.log(key, value[0]);
+                errors += "*";
+                errors += value[0];
+                errors += "\n\n";
+              }
+            }
+            console.log(errors);
+            this.showErrorNotification("Validación", errors);
+            return;
           } else {
-            this.showErrorNotification(
-              "Agregando Producto",
-              response.data.response
-            );
+            this.showErrorNotification("Error", response.data.response);
             return;
           }
           console.log(this.editid);

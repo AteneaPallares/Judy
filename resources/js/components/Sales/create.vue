@@ -45,6 +45,8 @@
                 <div class="row mt-5">
                   <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
                     <strong>Empleado</strong>
+                    <label class="text-danger" v-if="number != 2"> *</label
+                        >
                     <el-select
                       style="width: 100%"
                       v-model="sale.id_employee"
@@ -63,6 +65,8 @@
                   </div>
                   <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
                     <strong>Cliente</strong>
+                    <label class="text-danger" v-if="number != 2"> *</label
+                        >
                     <el-select
                       style="width: 100%"
                       v-model="sale.id_client"
@@ -85,6 +89,7 @@
                   >
                     <strong>Producto</strong>
                     <el-select
+                      @change="updateP"
                       style="width: 100%"
                       v-model="auxp"
                       filterable
@@ -105,8 +110,12 @@
                     class="d-inline col-lg-6 col-md-6 col-xs-12"
                   >
                     <div class="form-group">
-                      <strong>Cantidad</strong
-                      ><input
+                      <strong v-if="this.auxsto != null && this.auxsto > 0"
+                        >Cantidad 1-{{ this.auxsto }}</strong
+                      >
+                      <strong v-else>Cantidad (No se puede agregar)</strong>
+
+                      <input
                         class="form-control"
                         type="number"
                         name="name"
@@ -200,6 +209,7 @@ export default {
       name: null,
       auxp: null,
       auxq: null,
+      auxsto: null,
       response: [],
       day_selected: null,
       products: null,
@@ -327,23 +337,33 @@ export default {
   },
   methods: {
     edit() {
-      //  if (
-      //     this.scheduledata.id_sale == null ||
-      //     this.scheduledata.name == null ||
-      //     this.scheduledata.start_date == null ||
-      //     this.scheduledata.end_date == null
-      //   ) {
-      //     this.showErrorNotification("Agregar Venta", "Ingrese todos los campos");
-      //     return;
-      //   }
+       if (
+          this.sale.id_employee == null ||
+          this.sale.id_client== null
+        ) {
+          this.showErrorNotification("Agregar Venta", "Ingrese todos los campos");
+          return;
+        }
       this.sale.saveproducts = this.actualproducts;
       axios.post("/ventas", this.sale).then((response) => {
         if (_.isNumber(response.data.response)) {
+          if(response.data.errors!=null){
+            this.showErrorNotification("Error","Lo cantidad solicitada de siguientes id de productos no estan disponibles: "+response.data.errors);
+            return ;
+          }
           this.editid = response.data.response;
           this.showSuccessNotification(
             "Agregando Venta",
             "Información guardada con éxito"
           );
+          if(this.number==0){
+            this.sale.id_employee=null;
+            this.sale.id_client=null;
+            this.auxp=null;
+            this.auxq=null;
+            this.auxsto=null;
+            this.actualproducts=[];
+          }
         } else {
           this.showErrorNotification("Agregando Venta", response.data);
           return;
@@ -365,6 +385,10 @@ export default {
       color = color.slice(0, 7);
       return color + 30;
     },
+    updateP() {
+      var index = this.products.findIndex((i) => i.id === this.auxp);
+      this.auxsto = this.products[index].stock;
+    },
     showSuccessNotification(title, text) {
       this.$notify({
         title: title,
@@ -372,8 +396,15 @@ export default {
         type: "success",
       });
     },
-    onClickDelete(index) {
-      this.actualproducts.splice(index, 1);
+    onClickDelete(index2) {
+      var index = this.products.findIndex(
+        (i) => i.id === this.actualproducts[index2].id
+      );
+      this.products[index].stock += this.actualproducts[index2].quantity;
+      if (this.auxp == this.products[index].id) {
+        this.auxsto = this.products[index].stock;
+      }
+      this.actualproducts.splice(index2, 1);
     },
     showErrorNotification(title, text) {
       this.$notify({
@@ -409,18 +440,28 @@ export default {
         this.showErrorNotification("Agregando", "Faltan datos");
         return;
       }
-      var index2 = this.actualproducts.findIndex((i) => i.id === this.auxp);
-      if (index2 != -1) {
-        this.actualproducts[index2].quantity += parseInt(this.auxq);
+      if (this.auxq <= 0 || this.auxq > this.auxsto) {
+        this.showErrorNotification("Agregando", "Cantidad fuera de rango");
         return;
       }
+      var index2 = this.actualproducts.findIndex((i) => i.id === this.auxp);
       var index = this.products.findIndex((i) => i.id === this.auxp);
+
+      if (index2 != -1) {
+        this.actualproducts[index2].quantity += parseInt(this.auxq);
+        this.products[index].stock -= parseInt(this.auxq);
+        this.auxsto = this.products[index].stock;
+        return;
+      }
       this.actualproducts.push({
         id: this.auxp,
         quantity: parseInt(this.auxq),
         name: this.products[index].name,
         cost: this.products[index].cost,
       });
+      this.products[index].stock -= parseInt(this.auxq);
+      this.auxsto = this.products[index].stock;
+    this.auxq=null;
       console.log(this.actualproducts);
     },
     getSubtotal() {

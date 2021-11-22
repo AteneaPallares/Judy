@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller {
     //
@@ -47,6 +48,7 @@ class ProductController extends Controller {
      */
     public function store(Request $request) {
         //
+       
         if ($request -> deleteImage != NULL) {
             $product = Product:: findOrFail($request -> deleteImage);
             if ($product -> img != null) {

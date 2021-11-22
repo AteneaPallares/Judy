@@ -17,8 +17,8 @@ class CreateProductTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('stock')->nullable();
-            $table->string('cost')->nullable();
+            $table->BigInteger('stock')->nullable();
+            $table->double('cost')->nullable();
             $table->string('img')->nullable();
             $table->timestamps();
         });

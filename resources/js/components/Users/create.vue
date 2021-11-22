@@ -127,7 +127,6 @@
                     </div>
                   </div>
                   <div class="row">
-                    
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Teléfono</strong
@@ -142,7 +141,7 @@
                         />
                       </div>
                     </div>
-                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Género</strong
                         ><label class="text-danger" v-if="number != 2">
@@ -174,8 +173,6 @@
                     </div>
                   </div>
                   <div class="row">
-                   
-
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Estado</strong
@@ -219,7 +216,6 @@
                         </div>
                       </div>
                     </div>
-                  
                   </div>
                   <hr />
                   <h5 class="text-primary m-0 font-weight-bold">
@@ -274,7 +270,7 @@
                     @click="addShow"
                     >Cambiar contraseña</el-button
                   >
-                  <div class="row" v-show="number == 0 || show == true">
+                  <div class="row" v-show="number == 0 && show == true">
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="form-group">
                         <strong>Nueva contraseña</strong
@@ -312,7 +308,6 @@
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -326,6 +321,9 @@ export default {
       editAvailable: false,
       urlactive: "",
       roles: [],
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       editid: this.detailsid,
       array: [],
       isDragging: false,
@@ -391,6 +389,10 @@ export default {
     };
   },
   mounted() {
+    if (this.number == 0) {
+      this.show = true;
+    }
+    console.log(this.csrf);
     axios.get("/roles").then((res) => {
       this.roles = res.data;
       console.log(this.roles);
@@ -426,24 +428,19 @@ export default {
   },
   methods: {
     validate() {
-      return true;
       if (
         !(
           this.user.name != null &&
+          this.user.name != "" &&
           this.user.address != null &&
-          this.user.CURP != null &&
+          this.user.address != "" &&
           this.user.phone != null &&
+          this.user.phone != "" &&
           this.user.gender != null &&
           this.user.status != null &&
-          this.user.marita_status != null &&
-          this.user.birth_date != null &&
-          this.user.ns != null &&
-          this.user.weight != null &&
-          this.user.height != null &&
-          this.user.phone_sec != null &&
-          this.user.occupation != null &&
-          this.user.salary != null &&
+          this.user.birthdate != null &&
           this.user.email != null &&
+          this.user.email != "" &&
           this.nuevo != null &&
           (this.show == false ||
             (this.user.password != null && this.confirmationp != null))
@@ -476,20 +473,53 @@ export default {
     },
     edit() {
       this.user.role = this.nuevo;
-      console.log(this.user);
+      this.user._token = this.csrf;
       if (this.validate()) {
         axios.post("/empleados", this.user).then((response) => {
           if (_.isNumber(response.data.response)) {
+            console.log(this.response.data);
             this.editid = response.data.response;
             this.showSuccessNotification(
               "Agregando usuario",
               "Información guardada con éxito"
             );
+            if (this.number == 0) {
+              this.user = {
+                name: null,
+                email: null,
+                img: null,
+                address: null,
+                birthdate: null,
+                phone: null,
+                role: null,
+                gender: null,
+                status: null,
+                password: null,
+              };
+              this.confirmationp = null;
+              this.nuevo = null;
+                document.getElementById("pic").src =null;
+         
+            }
+
+          } else if (response.data.errors) {
+            console.log(response.data.errors);
+            let exampleObj = response.data.errors;
+            let errors = "";
+            for (let key in exampleObj) {
+              if (exampleObj.hasOwnProperty(key)) {
+                let value = exampleObj[key];
+                console.log(key, value[0]);
+                errors += "*";
+                errors += value[0];
+                errors += "\n\n";
+              }
+            }
+            console.log(errors);
+            this.showErrorNotification("Validación", errors);
+            return;
           } else {
-            this.showErrorNotification(
-              "Agregando usuario",
-              response.data.response
-            );
+            this.showErrorNotification("Error", response.data.response);
             return;
           }
           console.log(this.editid);

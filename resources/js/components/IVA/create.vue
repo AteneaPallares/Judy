@@ -52,7 +52,7 @@
                 <div class="col-lg-12">
                   <div class="col-lg-12">
                     <div class="text-center">
-                      <img id='pic' height="200px" />
+                      <img id="pic" height="200px" />
                     </div>
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                         ><label class="text-danger" v-if="number != 2"> *</label
                         ><input
                           class="form-control"
-                          type="text"
+                          type="number"
                           name="name"
                           v-model="iva.porcentage"
                           placeholder="Nombre(s) Apellido(s)"
@@ -77,7 +77,7 @@
                         />
                       </div>
                     </div>
-                     <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
                       <div class="block">
                         <strong>Fecha de inicio</strong
                         ><label class="text-danger" v-if="number != 2">
@@ -122,8 +122,7 @@ export default {
     };
   },
   mounted() {
-    document.getElementById("pic").src =
-            "../../../../storage/iva.jpg";
+    document.getElementById("pic").src = "../../../../storage/iva.jpg";
     if (this.number != 0) {
       axios.get(`/iva/detalleone/${this.editid}`).then((response) => {
         this.iva = response.data;
@@ -131,21 +130,46 @@ export default {
     }
   },
   methods: {
+    validate() {
+      if (
+        !(
+          this.iva.start != null &&
+          this.iva.start != "" &&
+          this.iva.porcentage != null &&
+          this.iva.porcentage != ""
+        )
+      ) {
+        this.showErrorNotification(
+          "Agregando ivao",
+          "Complete la información de los campos requeridos"
+        );
+        return false;
+      }
+      return true;
+    },
     edit() {
       console.log(this.iva);
-
-      axios.post("/iva", this.iva).then((response) => {
-        if (_.isNumber(response.data.response)) {
-          this.editid = response.data.response;
-          this.showSuccessNotification(
-            "Agregando iva",
-            "Información guardada con éxito"
-          );
-        } else {
-          this.showErrorNotification("Agregando iva", response.data);
-          return;
-        }
-      });
+      if (this.validate()) {
+        axios.post("/iva", this.iva).then((response) => {
+          if (_.isNumber(response.data.response)) {
+            this.editid = response.data.response;
+            this.showSuccessNotification(
+              "Agregando iva",
+              "Información guardada con éxito"
+            );
+            if (this.number == 0) {
+              this.iva = {
+                id: null,
+                start: null,
+                porcentage: null,
+              };
+            }
+          } else {
+            this.showErrorNotification("Agregando iva", response.data);
+            return;
+          }
+        });
+      }
     },
     showSuccessNotification(title, text) {
       this.$notify({

@@ -15,6 +15,9 @@ class AddForeignkeysToSalesTable extends Migration
     {
         Schema::table('sales', function (Blueprint $table) {
             //
+            $table->foreign('id_employee', 'fk_id__employee2')->references('id')->on('users')->onDelete('RESTRICT');
+            $table->foreign('id_client', 'fk_id__client2')->references('id')->on('client')->onDelete('RESTRICT');
+      
         });
     }
 
@@ -27,9 +30,7 @@ class AddForeignkeysToSalesTable extends Migration
     {
         Schema::table('sales', function (Blueprint $table) {
             //
-            $table->foreign('id_employee', 'fk_id__employee')->references('id')->on('users')->onDelete('RESTRICT');
-            $table->foreign('id_client', 'fk_id__client')->references('id')->on('client')->onDelete('RESTRICT');
-      
+         
         });
     }
 }

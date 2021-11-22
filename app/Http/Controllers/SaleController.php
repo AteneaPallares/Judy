@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\DetailsSale;
+use App\Models\Product;
 class SaleController extends Controller
 {
     public function __construct() {
@@ -56,16 +57,33 @@ class SaleController extends Controller
             $new -> id_client=$request -> id_client;
             $new -> id_employee=$request -> id_employee;
             $new -> save();
+            foreach($new->details_sales as $element){
+                $auxp=Product::findorfail($element['id_product']);
+                $auxp->stock+=$element['quantiy'];
+                $auxp->save();
+            }
             $new->details_sales()->delete();
+            $errores="";
             foreach($request->saveproducts as $element){
+                $auxp=Product::findorfail($element['id']);
                 $aux=new DetailsSale();
                 $aux->id_sales=$new->id;
                 $aux->cost=$element['cost'];
                 $aux->quantiy=$element['quantity'];
                 $aux->id_product=$element['id'];
-                $aux->save();
+                $auxp->stock-=$aux->quantiy;
+                if($auxp->stock<0){
+                    $errores.=(string)$aux->id_product;
+                    $errores.=", ";
+                }else{
+                    $aux->save();
+                    $auxp->save();
+                }
             }
-            return ['response'=> $new -> id];
+              return ['response'=> $new -> id,'errors'=>$errores];
+        
+               
+          
         } catch (\Exception $e) {
             return ['response'=> $e];
         }
@@ -140,6 +158,11 @@ class SaleController extends Controller
         if (request() -> isMethod("DELETE")) {
             try {
                 $Sale = Sale::findOrFail($id);
+                foreach($Sale->details_sales as $element){
+                    $auxp=Product::findorfail($element['id_product']);
+                    $auxp->stock+=$element['quantiy'];
+                    $auxp->save();
+                }
                 $Sale->details_sales()->delete();
                 $Sale->delete();
                 return 1;

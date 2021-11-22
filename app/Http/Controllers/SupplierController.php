@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class SupplierController extends Controller {
     //
@@ -47,6 +49,7 @@ class SupplierController extends Controller {
      */
     public function store(Request $request) {
         //
+        
         if ($request -> deleteImage != NULL) {
             $supplier = Supplier:: findOrFail($request -> deleteImage);
             if ($supplier -> img != null) {
@@ -71,6 +74,16 @@ class SupplierController extends Controller {
             return 3;
         }
         try {
+            try {
+                $validator = Validator:: make($request -> all(), [
+                    'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
+                ]);
+                if ($validator -> fails()) {
+                    return ['errors'=> $validator -> errors()];
+                }
+            } catch (\Exception $e) {
+                return ['response'=> $e];
+            }
             $edit = false;
             $new = [];
             if ($request -> id != null) {
