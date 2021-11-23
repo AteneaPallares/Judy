@@ -40,7 +40,7 @@
 <body id="page-top">
     <div id="app">
         <div id="wrapper">
-            @if(Illuminate\Support\Facades\Auth::check())
+            @if(Illuminate\Support\Facades\Auth::check() and Auth::user()->hasVerifiedEmail())
             <sidebar-component></sidebar-component>
             
             @endif

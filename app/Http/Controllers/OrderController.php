@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\DetailsOrder;
+use Illuminate\Support\Facades\Validator;
+
 class OrderController extends Controller
 {
     public function __construct() {
-        $this -> middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
     /**
      * Display a listing of the resource.

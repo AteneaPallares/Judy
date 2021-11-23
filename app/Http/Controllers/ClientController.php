@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class ClientController extends Controller {
     //
     public function __construct() {
-        $this -> middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
     /**
      * Display a listing of the resource.

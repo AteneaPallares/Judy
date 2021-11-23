@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\DetailsSale;
 use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
+
 class SaleController extends Controller
 {
+    
     public function __construct() {
-        $this -> middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
     /**
      * Display a listing of the resource.
@@ -49,10 +52,10 @@ class SaleController extends Controller
             try {
                 $validator = Validator:: make($request -> all(), [
                     'id_client' => 'required',
-                    'id_product' => 'required',
+                    'id_employee' => 'required',
                 ]);
                 if ($validator -> fails()) {
-                    return ['errors'=> $validator -> errors()];
+                    return ['response'=> $validator -> errors()];
                 }
             } catch (\Exception $e) {
                 return ['response'=> $e];
@@ -91,10 +94,10 @@ class SaleController extends Controller
                     $auxp->save();
                 }
             }
-              return ['response'=> $new -> id,'errors'=>$errores];
-        
-               
-          
+            if($errores==""){
+                return ['response'=> $new -> id];
+            }
+            return ['response'=> $new -> id,'errors'=>$errores];
         } catch (\Exception $e) {
             return ['response'=> $e];
         }

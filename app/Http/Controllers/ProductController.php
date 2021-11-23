@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller {
     //
     public function __construct() {
-        $this -> middleware('auth')->except('showall');
+        $this -> middleware(['auth', 'verified'])->except('showall','show','showone');
     }
     /**
      * Display a listing of the resource.

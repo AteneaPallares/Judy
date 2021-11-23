@@ -22,8 +22,8 @@ Route::get('/catalogo', function () {
 Route::get('/ideas', function () {
     return view('ideas');
 });
-
-Auth::routes();
+Auth::routes(['verify' => true]);
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
