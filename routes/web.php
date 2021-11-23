@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/catalogo', function () {
     return view('catalogue');
 });
+Route::get('/ideas', function () {
+    return view('ideas');
+});
 
 Auth::routes();
 

@@ -1,7 +1,6 @@
 <template>
   <div>
     
-    <h1 class="font-weight-bold text-center awesome">Contamos con una gran variedad de deliciosos productos</h1>
     <br />
     <br />
     <div class="row">
@@ -20,10 +19,15 @@
                   alt="card image"
                 />
                 <div class="card-body  h-100 w-100">
-                  <h4 class="card-title customfont text-center">{{ props.name }}</h4>
-                  <p class="card-text text-center text-success">
-                   $ {{ props.cost }}
-                  </p>
+                  <h4 class="card-title customfont text-center det">{{ props.name }}</h4>
+                  <p class="card-text text-center">
+                    <p class="text-success text-center">
+                       $ {{ props.cost }}
+                      </p>
+                  
+                  <p class="text-center">Stock: {{ props.stock }}</p>
+                   
+                  
                 </div>
               </div>
             </div>
@@ -71,7 +75,9 @@ export default {
   },
   methods: {
     getVal(prop) {
-
+      if(prop.img==null){
+        return "../../../../storage/prod.jpg";
+      }
       return "../../../../storage/" + prop.img;
     },send(prop){
         window.location="/productos/"+prop.id;
@@ -99,7 +105,7 @@ export default {
   vertical-align: top;
 }
 .det{
-    color: deeppink;
+    color: blue;
 }
 .cd:hover .ico {
   font-size: 60px;
