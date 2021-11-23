@@ -10,14 +10,22 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use PDF;
 class DashboardController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-
+    public function print(){
+        $params=$this->showall();
+        view()->share('all',$params);
+        $pdf = PDF::loadView('dashboard/print', $params);
+        return $pdf->download('reporte.pdf');
+    
+    }
     /**
      * Show the application dashboard.
      *
@@ -26,16 +34,6 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard/index');
-    }
-    public function print(){
-        $params=$this->showall();
-        view()->share('all',$params);
-        //view()->share('assigned_schedules/edit',$params);
-         $pdf = PDF::loadView('dashboard/print', $params);
-
-         // download PDF file with download method
-         return $pdf->download('reporte.pdf');
-    
     }
     public function showall()
     {
@@ -109,7 +107,7 @@ class DashboardController extends Controller
             }
             array_push($numberdate2,['date'=>$past,'num'=>$contdate]);  
         }
-        $data = ['all'=>$obj,'users'=>$userinfo,'usersd'=> $usersd,'register'=>$numberdate,'register2'=>$numberdate2];
+        $data = ['all'=>$obj,'users'=>$userinfo,'usersd'=> $usersd,'register'=>$numberdate,'register2'=>$numberdate2,'products'=>Product::all(),'username'=>Auth::user()->name,'dates'=>Carbon::now(),'supplier'=>Supplier::all(),'usersall'=>User::with('role')->get()];
        
         
         return $data;

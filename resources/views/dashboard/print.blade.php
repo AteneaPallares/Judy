@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Demo in Laravel 7</title>
+    <title>Judy</title>
     <?php $style_path = '/css/pdf.min.css'; ?>
     <link rel="stylesheet" href="{{ public_path() . $style_path}} ">
     <style>
@@ -48,13 +48,13 @@
                 <tbody>
                     <tr>
                         <td class="text-center w-50">
-                            <?php $style_path = '/images/favicon.ico'; ?>
+                            <?php $style_path = '/favicon.png'; ?>
                             <img class="img2 " src="{{ public_path() . $style_path }}">
 
                         </td>
                         <td class="w-75">
-                            <h4 class="text-center font-weight-bold">Chispots</h4>
-                            <h5 class="text-center font-weight-bold">"Servicios hospitalarios"</h5>
+                            <h4 class="text-center font-weight-bold">Judy</h4>
+                            <h5 class="text-center font-weight-bold">"Distribuidora de papel"</h5>
                             <h6 class="text-center">Atención de alta calidad a nuestros clientes</h6>
                         </td>
 
@@ -92,19 +92,19 @@
 
         <div class="border border-dark border-5 rounded text-center m-1 p-3 pb-1 mb-5 mt-3">
             <h6>
-                <center class="font-weight-bold h6">Horarios</center>
+                <center class="font-weight-bold h6">Productos</center>
             </h6>
             <table class="table mt-3">
                 <thead>
                     <tr>
                         <th class="text h6 small font-weight-bold">Id</th>
-                        <th class="text h6 small font-weight-bold">Nombre</th>
-                        <th class="text h6 small font-weight-bold">Área</th>
-                        <th class="text h6 small font-weight-bold">No.Usuarios</th>
+                        <th class="text h6 small font-weight-bold">Producto</th>
+                        <th class="text h6 small font-weight-bold">Stock</th>
+                        <th class="text h6 small font-weight-bold">Costo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($schedule as $s)
+                    @foreach ($products as $s)
                     <tr>
                         <td class="p-2 m-0">
                             <p class="text h6 small p-0 m-0">{{$s->id}}</p>
@@ -113,10 +113,44 @@
                             <p class="text h6 small p-0 m-0">{{$s->name}}</p>
                             </th>
                         <td class="p-2 m-0">
-                            <p class="text h6 small p-0 m-0">{{$s->area->name}}</p>
+                            <p class="text h6 small p-0 m-0">{{$s->stock}}</p>
                         </td>
                         <td class="p-2 m-0">
-                            <p class="text h6 small p-0 m-0">{{sizeof($s->users)}}</p>
+                            <p class="text h6 small p-0 m-0">{{$s->cost}}</p>
+                        </td>
+                    </tr>
+
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="border border-dark border-5 rounded text-center m-1 p-3 pb-1 mb-5 mt-3">
+            <h6>
+                <center class="font-weight-bold h6">Usuarios</center>
+            </h6>
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th class="text h6 small font-weight-bold">Id</th>
+                        <th class="text h6 small font-weight-bold">Nombre</th>
+                        <th class="text h6 small font-weight-bold">Correo</th>
+                        <th class="text h6 small font-weight-bold">Puesto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($usersall as $s)
+                    <tr>
+                        <td class="p-2 m-0">
+                            <p class="text h6 small p-0 m-0">{{$s->id}}</p>
+                        </td>
+                        <td class="p-2 m-0">
+                            <p class="text h6 small p-0 m-0">{{$s->name}}</p>
+                            </th>
+                        <td class="p-2 m-0">
+                            <p class="text h6 small p-0 m-0">{{$s->email}}</p>
+                        </td>
+                        <td class="p-2 m-0">
+                            <p class="text h6 small p-0 m-0">{{$s->role->name}}</p>
                         </td>
                     </tr>
 
@@ -127,19 +161,19 @@
 
         <div class="border border-dark border-5 rounded text-center m-1 p-3 pb-1 mb-5 mt-3">
             <h6>
-                <center class="font-weight-bold h6">Inventario</center>
+                <center class="font-weight-bold h6">Proveedores</center>
             </h6>
             <table class="table mt-3">
                 <thead>
                     <tr>
                         <th class="text h6 small font-weight-bold">Id</th>
                         <th class="text h6 small font-weight-bold">Nombre</th>
-                        <th class="text h6 small font-weight-bold">Cantidad</th>
-                        <th class="text h6 small font-weight-bold">Área</th>
+                        <th class="text h6 small font-weight-bold">Empresa</th>
+                        <th class="text h6 small font-weight-bold">Correo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($inventary as $s)
+                    @foreach ($supplier as $s)
                     <tr>
                         <td class="p-2 m-0">
                             <p class="text h6 small p-0 m-0">{{$s->id}}</p>
@@ -148,10 +182,10 @@
                             <p class="text h6 small p-0 m-0">{{$s->name}}</p>
                             </th>
                         <td class="p-2 m-0">
-                            <p class="text h6 small p-0 m-0">{{$s->quantity}}</p>
+                            <p class="text h6 small p-0 m-0">{{$s->enterprise}}</p>
                         </td>
                         <td class="p-2 m-0">
-                            <p class="text h6 small p-0 m-0">{{$s->area->name}}</p>
+                            <p class="text h6 small p-0 m-0">{{$s->email}}</p>
                         </td>
                     </tr>
 
@@ -159,6 +193,11 @@
                 </tbody>
             </table>
         </div>
+        
+
+       
+
+       
         <div>
             <h6>
                 <center class="font-weight-bold h6">Aviso de Privacidad</center>
@@ -166,8 +205,8 @@
             <p class="text-justify">
 
 
-                Empresa S.A. con domicilio en Av. Francisco González Bocanegra No. 1300, Colonia Centro, San Luis
-                Potosí, S.L.P. C.P. 78350, conforme a lo establecido en la Ley Federal de Protección de Datos en
+                Empresa Judy con domicilio en Av. Invento del Bienestar No. 1300, Colonia Falsa, en San Luis
+                Potosí, C.P. 78350, conforme a lo establecido en la Ley Federal de Protección de Datos en
                 Posesión de Particulares, pone a disposición de nuestros clientes, proveedores, empleados y público en
                 general, nuestro Aviso de Privacidad.
                 <br />

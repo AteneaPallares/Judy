@@ -24,7 +24,7 @@
           v-bind:icon="props.icon"
         />
       </div>
-      <div class="row col-lg-12 ">
+      <div class="row col-lg-12">
         <div class="col-xl-4 col-lg-6 mb-3 ml-auto mr-auto">
           <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
             <div class="d-inline card-body text-center p-0">
@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-8 col-lg-12 mb-3  ml-auto mr-auto">
+        <div class="col-xl-8 col-lg-12 mb-3 ml-auto mr-auto">
           <div class="pl-2 pr-0 pb-0 pt-0 card text-left">
             <div class="card-body text-center">
               <div class="chart-container p-0 m-0">
@@ -153,15 +153,15 @@ export default {
         data4.push(this.course.users[key]);
         labels4.push(key);
       });
-      var data=[];
-      var labels=[];
+      var data = [];
+      var labels = [];
 
-       Object.keys(this.course.usersd).forEach((key) => {
+      Object.keys(this.course.usersd).forEach((key) => {
         data.push(this.course.usersd[key]);
         labels.push(key);
       });
-      this.pie(data, labels, "Estado de los usuarios", "myChart9","bottom");
-     this.pie(data4, labels4, "Tipos de usuarios", "myChart4", "bottom");
+      this.pie(data, labels, "Estado de los usuarios", "myChart9", "bottom");
+      this.pie(data4, labels4, "Tipos de usuarios", "myChart4", "bottom");
       var items = [];
       var xy = [];
       this.course.register.forEach((value, index) => {
@@ -220,8 +220,8 @@ export default {
           },
         },
       });
-      items=[];
-      xy=[];
+      items = [];
+      xy = [];
       this.course.register2.forEach((value, index) => {
         var dateObj = new Date(value.date);
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -327,7 +327,7 @@ export default {
     },
     onClickDetails($idy) {},
     print() {
-      window.location.href = "/dashboard/print/";
+      window.open("/dashboard/print/", "_blank");
     },
   },
 };

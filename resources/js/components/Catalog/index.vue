@@ -26,10 +26,10 @@
                   :src="getVal(props)"
                   alt="card image"
                 />
-                <div class="card-body h-100 w-100">
-                  <h4 class="card-title customfont text-center det">
+                <div class="card-body h-100 w-100 text-center">
+                  <strong class="card-title customfont text-center det">
                     {{ props.name }}
-                  </h4>
+                  </strong>
                   <p class="card-text text-center"></p>
                   <p class="text-success text-center">$ {{ props.cost }}</p>
 

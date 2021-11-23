@@ -117,7 +117,7 @@ export default {
       }
       return "../../../../storage/" + prop.img;
     },send(prop){
-      window.open("https://www.youtube.com/watch?v=Bznxx12Ptl0/"+prop.id, "_blank");
+      window.open("https://www.youtube.com/watch?v="+prop.id, "_blank");
     }
   },
 };
