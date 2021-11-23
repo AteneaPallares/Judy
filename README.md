@@ -10,42 +10,49 @@
 ## About Laravel
 <!-- php artisan migrate:fresh --seed -->
 <!-- php artisan tinker -->
+Judy
+Es un sistema de administración para una distribuidora de papel
+
 Configuración
-- [Configurar .env file]
-- [php artisan storage:link]
+- Configurar .env file
+- php artisan storage:link
 
 Instalación
 - composer install
 - npm run install
-Para generar PDF
-- composer require barryvdh/laravel-dompdf
+- Para generar PDF
+    - composer require barryvdh/laravel-dompdf
+
 Ejecución
 - npm run watch
 - php artisan serve
+
 Para la base de datos
 - php artisan migrate
 - php artisan db:seed
+
 Para el API
 - No exceder el límite de consultas de la API 3 de youtube
-<!-- Implementaciones
-Migrations
-Seeders &factories
-Timestamps
-Login,logout register
-MIddleware implementado en cada controlador
-Validaciones desde vue JS y en laravel Validator
-Responsive 
-Mensajes de error y exito en cada transaccion 
-Navbar
-Modelos
-CRUD
-Soft Delete
-Accessors & Mutators en User
-API 3 youtube
-Files with images
-Email
-PDF en generate report Dashboard
--->
+
+Implementaciones
+- Migrations
+- Seeders &factories
+- Timestamps
+- Login,logout register
+- MIddleware implementado en cada controlador
+- Validaciones desde vue JS y en laravel Validator
+- Responsive 
+- Mensajes de error y exito en cada transaccion 
+- Navbar
+- Modelos
+- CRUD
+- Soft Delete
+- Accessors & Mutators en User
+- API 3 youtube
+- Files (images)
+- Email
+- PDF en generate report Dashboard
+
 
  
 <!-- User::factory()->count(20)->create()
