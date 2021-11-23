@@ -10,17 +10,46 @@
 ## About Laravel
 <!-- php artisan migrate:fresh --seed -->
 <!-- php artisan tinker -->
-composer require barryvdh/laravel-dompdf
-composer install
-npm run install
-php artisan storage:link
-npm run watch
-php artisan migrate
-php artisan db:seed
+Configuración
+- Configurar .env file
+- php artisan storage:link
+Instalación
+- composer install
+- npm run install
+Para generar PDF
+- composer require barryvdh/laravel-dompdf
+Ejecución
+- npm run watch
+- php artisan serve
+Para la base de datos
+- php artisan migrate
+- php artisan db:seed
+Para el API
+- No exceder el límite de consultas de la API 3 de youtube
+<!-- Implementaciones
+Migrations
+Seeders &factories
+Timestamps
+Login,logout register
+MIddleware implementado en cada controlador
+Validaciones desde vue JS y en laravel Validator
+Responsive 
+Mensajes de error y exito en cada transaccion 
+Navbar
+Modelos
+CRUD
+Soft Delete
+Accessors & Mutators en User
+API 3 youtube
+Files with images
+Email
+PDF en generate report Dashboard
+-->
+
  
-User::factory()->count(20)->create()
+<!-- User::factory()->count(20)->create()
 Client::factory()->count(20)->create()
-Product::factory()->count(20)->create()
+Product::factory()->count(20)->create() -->
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
