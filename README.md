@@ -48,7 +48,7 @@ Implementaciones
 - CRUD
 - Soft Delete
 - Accessors & Mutators en User
-- API 3 youtube
+- API 3 youtube en /ideas
 - Files (images)
 - Email
 - PDF en generate report Dashboard
