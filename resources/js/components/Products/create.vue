@@ -195,20 +195,6 @@ export default {
       },
       confirmationp: null,
       value: "",
-      vstatus: [
-        {
-          value: "Activo",
-          label: "Activo",
-        },
-        {
-          value: "Despedido",
-          label: "Despedido",
-        },
-        {
-          value: "Retirado",
-          label: "Retirado",
-        },
-      ],
     };
   },
   mounted() {
@@ -250,6 +236,13 @@ export default {
         this.showErrorNotification(
           "Agregando Producto",
           "Complete la información de los campos requeridos"
+        );
+        return false;
+      }
+      if (this.product.stock < 0) {
+        this.showErrorNotification(
+          "Agregando Producto",
+          "El stock no puede ser negativo"
         );
         return false;
       }
@@ -329,7 +322,7 @@ export default {
                 "Agregando Producto",
                 "Imagen guardada con éxito"
               );
-              if(this.number==0){
+              if (this.number == 0) {
                 this.deleteImg();
               }
             }

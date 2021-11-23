@@ -20,6 +20,12 @@ class CreateIvaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::table('iva')->insert(
+            array(
+                'porcentage' => '16',
+                'start'=>'2021-11-23'
+            )
+        );
     }
 
     /**
