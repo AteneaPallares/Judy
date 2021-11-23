@@ -212,6 +212,9 @@ export default {
       isDragging: false,
       dragCount: 0,
       images: [],
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       nuevo: [],
       show: false,
       user: {
@@ -224,58 +227,17 @@ export default {
       },
       radio1: "Hombre",
       confirmationp: null,
-      options: [
-        {
-          value: "Soltero",
-          label: "Soltero",
-        },
-        {
-          value: "Casado",
-          label: "Casado",
-        },
-        {
-          value: "Divorciado",
-          label: "Divorciado",
-        },
-        {
-          value: "Separación en proceso judicial",
-          label: "Separación en proceso judicial",
-        },
-        {
-          value: "Viudo",
-          label: "Viudo",
-        },
-        {
-          value: "Concubinato",
-          label: "Concubinato",
-        },
-      ],
       value: "",
-      vstatus: [
-        {
-          value: "Activo",
-          label: "Activo",
-        },
-        {
-          value: "Despedido",
-          label: "Despedido",
-        },
-        {
-          value: "Retirado",
-          label: "Retirado",
-        },
-      ],
     };
   },
   mounted() {
     axios.get("/roles").then((res) => {
       this.roles = res.data;
-      console.log(this.roles);
     });
 
     if (this.number != 0) {
       axios.get(`/clientes/detalleone/${this.editid}`).then((response) => {
-        console.log(response.data);
+      
 
         this.user = response.data;
         this.nuevo = this.user.id_role;
@@ -326,8 +288,8 @@ export default {
       return true;
     },
     edit() {
-      console.log(this.user);
       if (this.validate()) {
+        this.user._token=this.csrf;
         axios.post("/clientes", this.user).then((response) => {
           if (_.isNumber(response.data.response)) {
             this.editid = response.data.response;
@@ -472,7 +434,6 @@ export default {
       this.show = true;
     },
     showchange() {
-      console.log(this.user);
     },
   },
 };

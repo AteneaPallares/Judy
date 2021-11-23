@@ -193,34 +193,7 @@ export default {
         cost: null,
         id: null,
       },
-      radio1: "Hombre",
       confirmationp: null,
-      options: [
-        {
-          value: "Soltero",
-          label: "Soltero",
-        },
-        {
-          value: "Casado",
-          label: "Casado",
-        },
-        {
-          value: "Divorciado",
-          label: "Divorciado",
-        },
-        {
-          value: "Separación en proceso judicial",
-          label: "Separación en proceso judicial",
-        },
-        {
-          value: "Viudo",
-          label: "Viudo",
-        },
-        {
-          value: "Concubinato",
-          label: "Concubinato",
-        },
-      ],
       value: "",
       vstatus: [
         {

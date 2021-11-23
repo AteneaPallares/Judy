@@ -246,7 +246,6 @@ export default {
     axios
       .get("/iva/all")
       .then((res) => {
-        console.log(res.data);
         this.content = res.data;
         this.aux = this.content;
         this.max = Math.ceil(this.content.length / this.pagesize);
@@ -295,7 +294,7 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(this.getDate(value.start), this.search)) {
             this.aux.push(value);
-          } 
+          }
         });
         this.max = Math.ceil(this.aux.length / this.pagesize);
         this.actual = 0;
@@ -320,17 +319,21 @@ export default {
       } else if ($op == 2) {
         this.sortaux("porcentage");
       } else if ($op == 3) {
-        let str='start';
-         if (this.asc) {
-        this.aux.sort((a, b) =>
-          this.getDateO(a[str]) < this.getDateO(b[str]) ? -1 : Number(this.getDateO(a[str]) > this.getDateO(b[str]))
-        );
-      } else {
-        this.aux.sort((a, b) =>
-          this.getDateO(a[str]) > this.getDateO(b[str]) ? -1 : Number(this.getDateO(a[str]) < this.getDateO(b[str]))
-        );
+        let str = "start";
+        if (this.asc) {
+          this.aux.sort((a, b) =>
+            this.getDateO(a[str]) < this.getDateO(b[str])
+              ? -1
+              : Number(this.getDateO(a[str]) > this.getDateO(b[str]))
+          );
+        } else {
+          this.aux.sort((a, b) =>
+            this.getDateO(a[str]) > this.getDateO(b[str])
+              ? -1
+              : Number(this.getDateO(a[str]) < this.getDateO(b[str]))
+          );
+        }
       }
-      } 
       this.asc = !this.asc;
       this.actual = 0;
       this.update();
@@ -373,10 +376,7 @@ export default {
                   "El iva se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification(
-                  "Eliminar",
-                  "iva eliminado"
-                );
+                this.showSuccessNotification("Eliminar", "iva eliminado");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
                 axios.get("/iva/all").then((res) => {
@@ -406,24 +406,22 @@ export default {
     },
     getDate(dat) {
       var d = new Date(dat);
-      console.log(d);
       var datestring =
         ("0" + d.getDate()).slice(-2) +
         "/" +
         ("0" + (d.getMonth() + 1)).slice(-2) +
-        "/" +d.getFullYear();
-      console.log(d.getDay());
-      console.log(datestring);
+        "/" +
+        d.getFullYear();
       return datestring;
     },
     getDateO(dat) {
       var d = new Date(dat);
       var datestring =
-      d.getFullYear()+
+        d.getFullYear() +
         ("0" + (d.getMonth() + 1)).slice(-2) +
         "/" +
         ("0" + d.getDate()).slice(-2) +
-        "/" ;
+        "/";
       return datestring;
     },
     showSuccessNotification(title, text) {

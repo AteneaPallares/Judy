@@ -45,6 +45,8 @@
                 <div class="row mt-5">
                   <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
                     <strong>Empleado</strong>
+                     <label class="text-danger" v-if="number != 2"> *</label>
+                   
                     <el-select
                       style="width: 100%"
                       v-model="order.id_employee"
@@ -63,6 +65,8 @@
                   </div>
                   <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
                     <strong>Proveedor</strong>
+                     <label class="text-danger" v-if="number != 2"> *</label>
+                   
                     <el-select
                       style="width: 100%"
                       v-model="order.id_supplier"
@@ -84,7 +88,8 @@
                     class="col-lg-6 col-md-6 col-xs-8 mb-2"
                   >
                     <strong>Producto</strong>
-                    <el-select @change="updateP"
+                    <el-select
+                      @change="updateP"
                       style="width: 100%"
                       v-model="auxp"
                       filterable
@@ -167,7 +172,9 @@
                         </td>
                         <td>{{ val.id }}</td>
                         <td>{{ val.quantity }}</td>
-                        <td role="button" @click="goOut(val.id)">{{ val.name }}</td>
+                        <td role="button" @click="goOut(val.id)">
+                          {{ val.name }}
+                        </td>
                         <td>$ {{ val.price }}</td>
                         <td>$ {{ getR(val.price * val.quantity) }}</td>
                       </tr>
@@ -177,7 +184,7 @@
                       </tr>
                       <tr>
                         <td colspan="5" align="right">
-                          +{{getR( getIVA() )}}% de IVA
+                          +{{ getR(getIVA()) }}% de IVA
                         </td>
                         <td>${{ getR(getTotalIVA()) }}</td>
                       </tr>
@@ -218,7 +225,7 @@ export default {
         .getAttribute("content"),
       auxq: null,
       response: [],
-      auxprice:null,
+      auxprice: null,
       day_selected: null,
       products: null,
       iva: null,
@@ -230,16 +237,6 @@ export default {
         updated_at: new Date(),
         saveproducts: null,
       },
-      all_days: [
-        {
-          value: "Lunes",
-          label: "Compras",
-        },
-        {
-          value: "Martes",
-          label: "Total",
-        },
-      ],
       editAvailable: false,
       editid: this.detailsid,
       schedule: {
@@ -345,15 +342,10 @@ export default {
   },
   methods: {
     edit() {
-      //  if (
-      //     this.scheduledata.id_order == null ||
-      //     this.scheduledata.name == null ||
-      //     this.scheduledata.start_date == null ||
-      //     this.scheduledata.end_date == null
-      //   ) {
-      //     this.showErrorNotification("Agregar Pedido", "Ingrese todos los campos");
-      //     return;
-      //   }
+      if (this.order.id_employee == null || this.order.id_supplier == null) {
+        this.showErrorNotification("Agregar Pedido", "Ingrese todos los campos");
+        return;
+      }
       this.order._token = this.csrf;
       this.order.saveproducts = this.actualorders;
       axios.post("/pedidos", this.order).then((response) => {
@@ -363,6 +355,19 @@ export default {
             "Agregando Pedido",
             "Información guardada con éxito"
           );
+          if (this.number == 0) {
+            this.order = {
+              id: null,
+              id_employee: null,
+              id_supplier: null,
+              updated_at: new Date(),
+              saveproducts: null,
+            };
+            this.actualorders=[];
+            this.auxq=null;
+            this.auxprice=null;
+            this.auxp=null;
+          }
         } else {
           this.showErrorNotification("Agregando Pedido", response.data);
           return;
@@ -401,17 +406,17 @@ export default {
         type: "error",
       });
     },
-     goOut(id){
-      window.open("/productos/"+id+"/","_blank");
+    goOut(id) {
+      window.open("/productos/" + id + "/", "_blank");
     },
-    getR(r){
-      if(r==null)return 0.00;
+    getR(r) {
+      if (r == null) return 0.0;
       console.log(r);
-      return (r).toFixed(2);
+      return r.toFixed(2);
     },
-    updateP(){
+    updateP() {
       var index = this.products.findIndex((i) => i.id === this.auxp);
-      this.auxprice=this.products[index].cost;
+      this.auxprice = this.products[index].cost;
     },
     getDateO(dat) {
       var d = new Date(dat);
@@ -440,14 +445,14 @@ export default {
         this.showErrorNotification("Agregando", "Faltan datos");
         return;
       }
-      if(this.auxq<0){
+      if (this.auxq < 0) {
         this.showErrorNotification("Agregando", "El valor debe ser mayor a 0");
         return;
       }
       var index2 = this.actualorders.findIndex((i) => i.id === this.auxp);
       if (index2 != -1) {
         this.actualorders[index2].quantity += parseInt(this.auxq);
-        this.actualorders[index2].price=this.auxprice;
+        this.actualorders[index2].price = this.auxprice;
         return;
       }
       var index = this.products.findIndex((i) => i.id === this.auxp);

@@ -97,6 +97,7 @@ class SaleController extends Controller
             if($errores==""){
                 return ['response'=> $new -> id];
             }
+            $this->del($new->id);
             return ['response'=> $new -> id,'errors'=>$errores];
         } catch (\Exception $e) {
             return ['response'=> $e];
@@ -167,6 +168,21 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    private function del($id){
+        try {
+            $Sale = Sale::findOrFail($id);
+            foreach($Sale->details_sales as $element){
+                $auxp=Product::findorfail($element['id_product']);
+                $auxp->stock+=$element['quantiy'];
+                $auxp->save();
+            }
+            $Sale->details_sales()->delete();
+            $Sale->delete();
+            return 1;
+        } catch (\Illuminate\Database\QueryException $e) {
+            return 0;
+        }
+    }
     public function destroy($id) {
         //
         if (request() -> isMethod("DELETE")) {

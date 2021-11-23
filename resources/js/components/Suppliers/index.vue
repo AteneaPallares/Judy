@@ -271,7 +271,6 @@ export default {
     axios
       .get("/proveedores/all")
       .then((res) => {
-        console.log(res.data);
         this.content = res.data;
         this.aux = this.content;
         this.max = Math.ceil(this.content.length / this.pagesize);

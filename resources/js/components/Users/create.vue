@@ -345,32 +345,6 @@ export default {
       },
       radio1: "Hombre",
       confirmationp: null,
-      options: [
-        {
-          value: "Soltero",
-          label: "Soltero",
-        },
-        {
-          value: "Casado",
-          label: "Casado",
-        },
-        {
-          value: "Divorciado",
-          label: "Divorciado",
-        },
-        {
-          value: "Separación en proceso judicial",
-          label: "Separación en proceso judicial",
-        },
-        {
-          value: "Viudo",
-          label: "Viudo",
-        },
-        {
-          value: "Concubinato",
-          label: "Concubinato",
-        },
-      ],
       value: "",
       vstatus: [
         {
@@ -498,9 +472,7 @@ export default {
               };
               this.confirmationp = null;
               this.nuevo = null;
-              
             }
-
           } else if (response.data.errors) {
             console.log(response.data.errors);
             let exampleObj = response.data.errors;
@@ -554,11 +526,10 @@ export default {
                 "Agregando usuario",
                 "Imagen guardada con éxito"
               );
-              if(this.number==0){
+              if (this.number == 0) {
                 this.deleteImg();
               }
             }
-            
           });
         });
       }

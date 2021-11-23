@@ -79,7 +79,6 @@ export default {
       .get("/productos/all")
       .then((res) => {
         this.allproducts = res.data;
-        console.log(this.allproducts);
       })
       .catch(() => {
         this.$notify({

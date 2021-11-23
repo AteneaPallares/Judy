@@ -100,12 +100,6 @@ class ProductController extends Controller {
             $new -> description=$request -> description;
             $new -> cost=$request -> cost;
           
-          
-           // $new -> birthdate=$request -> birthdate;
-            //$new -> phone=$request -> phone;
-           // $new -> gender=$request -> gender;
-          //  $new -> status=$request -> status;
-           // $new -> id_role=$request -> role;
             if ($request -> hasFile('imagen')) {
                 $stri = "productos".($product -> id).'.'.$request -> file('imagen') -> extension();;
                 $path = $request -> imagen -> storeAs('productos', $stri, 'public');

@@ -195,47 +195,7 @@ export default {
       },
       radio1: "Hombre",
       confirmationp: null,
-      options: [
-        {
-          value: "Soltero",
-          label: "Soltero",
-        },
-        {
-          value: "Casado",
-          label: "Casado",
-        },
-        {
-          value: "Divorciado",
-          label: "Divorciado",
-        },
-        {
-          value: "Separación en proceso judicial",
-          label: "Separación en proceso judicial",
-        },
-        {
-          value: "Viudo",
-          label: "Viudo",
-        },
-        {
-          value: "Concubinato",
-          label: "Concubinato",
-        },
-      ],
       value: "",
-      vstatus: [
-        {
-          value: "Activo",
-          label: "Activo",
-        },
-        {
-          value: "Despedido",
-          label: "Despedido",
-        },
-        {
-          value: "Retirado",
-          label: "Retirado",
-        },
-      ],
     };
   },
   mounted() {

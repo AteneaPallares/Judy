@@ -288,7 +288,6 @@ export default {
     axios
       .get("/ventas/all")
       .then((res) => {
-        console.log(res.data);
         this.data = res.data;
         this.content = res.data;
         this.aux = this.content;
@@ -421,15 +420,12 @@ export default {
     },
     getDate(dat) {
       var d = new Date(dat);
-      console.log(d);
       var datestring =
         ("0" + d.getDate()).slice(-2) +
         "/" +
         ("0" + (d.getMonth() + 1)).slice(-2) +
         "/" +
         d.getFullYear();
-      console.log(d.getDay());
-      console.log(datestring);
       return datestring;
     },
     getDateO(dat) {

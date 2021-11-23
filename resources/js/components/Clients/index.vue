@@ -271,7 +271,6 @@ export default {
     axios
       .get("/clientes/all")
       .then((res) => {
-        console.log(res.data);
         this.content = res.data;
         this.aux = this.content;
         this.max = Math.ceil(this.content.length / this.pagesize);
@@ -283,7 +282,6 @@ export default {
           "Error al cargar datos",
           "Conexión inválida"
         );
-        console.log(error);
       });
   },
   methods: {

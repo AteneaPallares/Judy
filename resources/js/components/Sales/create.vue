@@ -159,7 +159,9 @@
                         </td>
                         <td>{{ val.id }}</td>
                         <td>{{ val.quantity }}</td>
-                        <td role="button" @click="goOut(val.id)">{{ val.name }}</td>
+                        <td role="button" @click="goOut(val.id)">
+                          {{ val.name }}
+                        </td>
                         <td>$ {{ val.cost }}</td>
                         <td>$ {{ getR(val.cost * val.quantity) }}</td>
                       </tr>
@@ -175,7 +177,7 @@
                       </tr>
                       <tr>
                         <td colspan="5" align="right">Monto Total</td>
-                        <td>${{getR( getTotal()) }}</td>
+                        <td>${{ getR(getTotal()) }}</td>
                       </tr>
                     </tbody>
 
@@ -359,10 +361,10 @@ export default {
         }
       });
     },
-    getR(r){
-      if(r==null)return 0.00;
+    getR(r) {
+      if (r == null) return 0.0;
       console.log(r);
-      return (r).toFixed(2);
+      return r.toFixed(2);
     },
     getRandomColor(indx) {
       indx = (indx + indx * 3) * (indx + 5 * indx * indx * indx) * indx + indx;
@@ -379,8 +381,8 @@ export default {
       color = color.slice(0, 7);
       return color + 30;
     },
-    goOut(id){
-      window.open("/productos/"+id+"/","_blank");
+    goOut(id) {
+      window.open("/productos/" + id + "/", "_blank");
     },
     updateP() {
       var index = this.products.findIndex((i) => i.id === this.auxp);

@@ -127,25 +127,6 @@ export default {
       ];
       var items = [];
       var xy = [];
-      // var data = [];
-      // var labels = [];
-      // var data2 = [];
-      // var labels2 = [];
-      // Object.keys(this.course.patient).forEach((key) => {
-      //   data.push(this.course.patient[key]);
-      //   labels.push(key);
-      // });
-      // Object.keys(this.course.date).forEach((key) => {
-      //   data2.push(this.course.date[key]);
-      //   labels2.push(key);
-      // });
-      // var data3 = [];
-      // var labels3 = [];
-      // Object.keys(this.course.weight).forEach((key) => {
-      //   data3.push(this.course.weight[key]);
-      //   labels3.push(key);
-      // });
-      console.log(this.course);
 
       var data4 = [];
       var labels4 = [];

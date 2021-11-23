@@ -91,7 +91,7 @@
                     {{ props.name }}
                   </td>
                   <td>
-                    {{ props.stock}}
+                    {{ props.stock }}
                   </td>
                   <td>
                     {{ props.cost }}
@@ -271,7 +271,6 @@ export default {
     axios
       .get("/productos/all")
       .then((res) => {
-        console.log(res.data);
         this.content = res.data;
         this.aux = this.content;
         this.max = Math.ceil(this.content.length / this.pagesize);
@@ -283,7 +282,6 @@ export default {
           "Error al cargar datos",
           "Conexión inválida"
         );
-        console.log(error);
       });
   },
   methods: {
@@ -320,10 +318,7 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.cost, this.search)) {
             this.aux.push(value);
-          } else if (
-            this.foundIt(value.stock,this.search
-            )
-          ) {
+          } else if (this.foundIt(value.stock, this.search)) {
             this.aux.push(value);
           }
         });
@@ -387,7 +382,6 @@ export default {
         }
       )
         .then(() => {
-        
           axios
             .delete(`/productos/${$idc}/`)
             .then((response) => {

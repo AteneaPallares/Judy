@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class ClientController extends Controller {
     //
     public function __construct() {
-        $this->middleware(['auth', 'verified']);
+        $this -> middleware(['auth', 'verified']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ClientController extends Controller {
 
     public function showall() {
         //return client::with('roles','schedule')->get();
-        return Client::all();
+        return Client:: all();
         //return client::all();
     }
     /**
@@ -96,11 +96,11 @@ class ClientController extends Controller {
             $new -> name=$request -> name;
             $new -> email=$request -> email;
             $new -> address=$request -> address;
-           // $new -> birthdate=$request -> birthdate;
+            // $new -> birthdate=$request -> birthdate;
             $new -> phone=$request -> phone;
             $new -> gender=$request -> gender;
-          //  $new -> status=$request -> status;
-           // $new -> id_role=$request -> role;
+            //  $new -> status=$request -> status;
+            // $new -> id_role=$request -> role;
             if ($request -> hasFile('imagen')) {
                 $stri = "cliente".($client -> id).'.'.$request -> file('imagen') -> extension();;
                 $path = $request -> imagen -> storeAs('clientes', $stri, 'public');
@@ -182,7 +182,7 @@ class ClientController extends Controller {
         if (request() -> isMethod("DELETE")) {
             try {
                 $client = Client:: findOrFail($id);
-                if(count($client->sales)>0){
+                if (count($client -> sales) > 0) {
                     return 0;
                 }
                 if ($client -> img != null) {
