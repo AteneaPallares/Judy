@@ -9,7 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Client
  * 
@@ -25,7 +25,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Client extends Model
 {
-	use HasFactory;
+	use HasFactory,SoftDeletes;
+	
 	protected $table = 'client';
 
 	protected $fillable = [

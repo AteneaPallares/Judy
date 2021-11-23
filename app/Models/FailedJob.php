@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class FailedJob
  * 
@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FailedJob extends Model
 {
+	use SoftDeletes;
 	protected $table = 'failed_jobs';
 	public $timestamps = false;
 

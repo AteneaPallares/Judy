@@ -21,6 +21,7 @@ class CreateSupplierTable extends Migration
             $table->string('email')->nullable();
             $table->string('img')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

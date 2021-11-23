@@ -20,6 +20,7 @@ class CreateDetailsOrderTable extends Migration
             $table->unsignedBigInteger('id_order')->index('fk_id_order');
             $table->unsignedBigInteger('id_product')->index('fk_id_product_order');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Iva;
+use Illuminate\Support\Facades\Validator;
+
 class IvaController extends Controller
 {
     /**
@@ -45,6 +47,16 @@ class IvaController extends Controller
     {
         //
         try{
+            try {
+                $validator = Validator:: make($request -> all(), [
+                    'porcentage' => 'required',
+                ]);
+                if ($validator -> fails()) {
+                    return ['errors'=> $validator -> errors()];
+                }
+            } catch (\Exception $e) {
+                return ['response'=> $e];
+            }
             $iva=[];
             if($request->id==null){
                 $iva=new Iva();

@@ -18,7 +18,7 @@ class CreateOrderTable extends Migration
             $table->unsignedBigInteger('id_employee')->index('fk_id_employee');
             $table->unsignedBigInteger('id_supplier')->index('fk_id_supplier');
            
-           
+            $table->softDeletes();
             $table->timestamps();
         });
     }

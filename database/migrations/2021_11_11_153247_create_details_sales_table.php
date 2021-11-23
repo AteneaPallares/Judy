@@ -19,7 +19,7 @@ class CreateDetailsSalesTable extends Migration
             $table->integer('quantiy');
             $table->unsignedBigInteger('id_sales')->index('fk_id_sales');
             $table->unsignedBigInteger('id_product')->index('fk_id_product');
-            
+            $table->softDeletes();
            
             $table->timestamps();
         });

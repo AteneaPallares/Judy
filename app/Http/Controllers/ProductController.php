@@ -73,6 +73,18 @@ class ProductController extends Controller {
             return 3;
         }
         try {
+            try {
+                $validator = Validator:: make($request -> all(), [
+                    'name' => 'required',
+                    'stock' => 'required',
+                    'cost'=>'required'
+                ]);
+                if ($validator -> fails()) {
+                    return ['errors'=> $validator -> errors()];
+                }
+            } catch (\Exception $e) {
+                return ['response'=> $e];
+            }
             $edit = false;
             $new = [];
             if ($request -> id != null) {

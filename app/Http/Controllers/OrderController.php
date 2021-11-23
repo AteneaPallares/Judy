@@ -45,6 +45,17 @@ class OrderController extends Controller
     public function store(Request $request) {
         //
         try {
+            try {
+                $validator = Validator:: make($request -> all(), [
+                    'id_supplier' => 'required',
+                    'id_employee' => 'required',
+                ]);
+                if ($validator -> fails()) {
+                    return ['errors'=> $validator -> errors()];
+                }
+            } catch (\Exception $e) {
+                return ['response'=> $e];
+            }
             $edit = false;
             $new = [];
             if ($request -> id != null) {

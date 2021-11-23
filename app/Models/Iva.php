@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Iva
  * 
@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Iva extends Model
 {
+	use SoftDeletes;
 	protected $table = 'iva';
 
 	protected $casts = [

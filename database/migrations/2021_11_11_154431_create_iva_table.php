@@ -18,6 +18,7 @@ class CreateIvaTable extends Migration
             $table->double('porcentage');
             $table->timestamp('start');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

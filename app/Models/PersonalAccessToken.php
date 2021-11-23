@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class PersonalAccessToken
  * 
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PersonalAccessToken extends Model
 {
+	use SoftDeletes;
 	protected $table = 'personal_access_tokens';
 
 	protected $casts = [

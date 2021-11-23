@@ -46,6 +46,17 @@ class SaleController extends Controller
     public function store(Request $request) {
         //
         try {
+            try {
+                $validator = Validator:: make($request -> all(), [
+                    'id_client' => 'required',
+                    'id_product' => 'required',
+                ]);
+                if ($validator -> fails()) {
+                    return ['errors'=> $validator -> errors()];
+                }
+            } catch (\Exception $e) {
+                return ['response'=> $e];
+            }
             $edit = false;
             $new = [];
             if ($request -> id != null) {

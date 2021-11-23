@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class DetailsOrder
  * 
@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DetailsOrder extends Model
 {
+	use SoftDeletes;
 	protected $table = 'details_order';
 
 	protected $casts = [

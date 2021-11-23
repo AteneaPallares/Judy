@@ -18,7 +18,7 @@ class CreateSalesTable extends Migration
             $table->unsignedBigInteger('id_employee')->index('fk_id_employee2');
             $table->unsignedBigInteger('id_client')->index('fk_id_client2');
            
-           
+            $table->softDeletes();
             $table->timestamps();
         });
     }
