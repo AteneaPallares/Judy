@@ -3,10 +3,10 @@
     
     <br />
     <br />
-    <div class="row">
+    <div v-if="videos.length>0" class="row">
       <div 
         class="col-lg-3 mb-3 col-md-4 col-sm-6 col-xs-12 d-flex align-items-stretch"
-        v-for="(props, index) in allproducts"
+        v-for="(props, index) in videos"
         v-bind:key="index"
       >
         <div class="image-flip  h-100 w-100 cardcustom p-2 " ontouchstart="this.classList.toggle('hover');">
@@ -15,18 +15,11 @@
               <div class="card h-100 w-100 d-flex align-items-stretch" >
                 <img
                   class="card-img-top h-50"
-                  :src="getVal(props)"
+                  :src="props.thumbnails.default.url"
                   alt="card image"
                 />
                 <div class="card-body  h-100 w-100">
-                  <h4 class="card-title customfont text-center det">{{ props.name }}</h4>
-                  <p class="card-text text-center">
-                    <p class="text-success text-center">
-                       $ {{ props.cost }}
-                      </p>
-                  
-                  <p class="text-center">Stock: {{ props.stock }}</p>
-                   
+                  <strong class="card-title customfont text-center det ">{{ props.title }}</strong>
                   
                 </div>
               </div>
@@ -45,7 +38,7 @@
                   href="#"
                   @click="send(props)"
                 >
-                  <span class="float-left det">Ver detalles</span>
+                  <span class="float-left det">Ver video</span>
                   <span class="float-right det">
                     <i class="el-icon-arrow-right"></i>
                   </span>
@@ -65,16 +58,54 @@ export default {
   data() {
     return {
       allproducts: [],
+      items:null,
+      videos:[],
     };
   },
   mounted() {
-    axios.get("https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&part=snippet,contentDetails,statistics,status").then((res) => {
+    axios.get("https://www.googleapis.com/youtube/v3/search?&q=papel+de+oficina+fotograficos&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&chart=mostPopular").then((res) => {
       console.log(res.data);
+      this.items=res.data;
+      console.log(this.items.items);
+      this.items.items.forEach((value, index) => {
+        let id=value.id.videoId;
+         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48").then((res2) => {
+           this.videos.push(res2.data.items[0].snippet);
+           console.log(res2.data);
+           console.log("All");
+          console.log(this.videos);
+         });
+      })
     });
-    axios.get("/productos/all").then((res) => {
-      this.allproducts = res.data;
-      console.log(this.allproducts);
+    axios.get("https://www.googleapis.com/youtube/v3/search?&q=manualidades&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&chart=mostPopular").then((res) => {
+      console.log(res.data);
+      this.items=res.data;
+      console.log(this.items.items);
+      this.items.items.forEach((value, index) => {
+        let id=value.id.videoId;
+         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48").then((res2) => {
+           this.videos.push(res2.data.items[0].snippet);
+           console.log(res2.data);
+           console.log("All");
+          console.log(this.videos);
+         });
+      })
     });
+     axios.get("https://www.googleapis.com/youtube/v3/search?&q=tipos+de+papeles+chino+foami&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&chart=mostPopular").then((res) => {
+      console.log(res.data);
+      this.items=res.data;
+      console.log(this.items.items);
+      this.items.items.forEach((value, index) => {
+        let id=value.id.videoId;
+         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48").then((res2) => {
+           this.videos.push(res2.data.items[0].snippet);
+           console.log(res2.data);
+           console.log("All");
+          console.log(this.videos);
+         });
+      })
+    });
+
   },
   methods: {
     getVal(prop) {

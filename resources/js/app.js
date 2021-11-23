@@ -35,6 +35,7 @@
  Vue.component('ivaindex-component', require('./components/IVA/index.vue').default);
  Vue.component('ivacreate-component', require('./components/IVA/create.vue').default);
  Vue.component('catalog-component', require('./components/Catalog/index.vue').default);
+ Vue.component('ideas-component', require('./components/Idea/index.vue').default);
  Vue.component('salesindex-component', require('./components/Sales/index.vue').default);
  Vue.component('salescreate-component', require('./components/Sales/create.vue').default);
  Vue.component('ordersindex-component', require('./components/Orders/index.vue').default);

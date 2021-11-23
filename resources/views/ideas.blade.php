@@ -1,4 +1,4 @@
 @extends('layouts.main')
 @section('content')
-<catalog-component/>
+<ideas-component/>
 @endsection
