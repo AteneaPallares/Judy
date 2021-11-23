@@ -20,30 +20,6 @@ class CreateRolesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        DB::table('roles')->insert(
-            array(
-                'name' => 'Administrador',
-                'description'=>'Acceso total'
-            )
-        );
-        DB::table('roles')->insert(
-            array(
-                'name' => 'Vendedor',
-                'description'=>'Acceso total pacientes'
-            )
-        );
-        DB::table('roles')->insert(
-            array(
-                'name' => 'Gerente',
-                'description'=>'Acceso parcial a pacientes'
-            )
-        );
-        DB::table('roles')->insert(
-            array(
-                'name' => 'Personal de almacén',
-                'description'=>'Acceso parcial del sistema'
-            )
-        );
     }
 
     /**

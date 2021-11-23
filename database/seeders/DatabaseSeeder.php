@@ -1,9 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,6 +12,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Administrador',
+                'description'=>'Acceso total'
+            )
+        );
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Vendedor',
+                'description'=>'Acceso total pacientes'
+            )
+        );
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Gerente',
+                'description'=>'Acceso parcial a pacientes'
+            )
+        );
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Personal de almacén',
+                'description'=>'Acceso parcial del sistema'
+            )
+        );
+        \App\Models\User::factory(10)->create();
+        \App\Models\Client::factory(10)->create();
+        \App\Models\Product::factory(10)->create();
     }
 }

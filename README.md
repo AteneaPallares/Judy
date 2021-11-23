@@ -8,7 +8,10 @@
 </p>
 
 ## About Laravel
-php artisan tinker
+<!-- php artisan migrate:fresh --seed -->
+<!-- php artisan tinker -->
+php artisan migrate
+php artisan db:seed
  
 User::factory()->count(20)->create()
 Client::factory()->count(20)->create()

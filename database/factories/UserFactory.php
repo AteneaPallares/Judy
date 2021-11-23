@@ -19,7 +19,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'phone'=>$this->faker->phoneNumber(),
             'address'=>$this->faker->address(),
-            'id_role'=>$this->faker->regexify('[012]{1}'),
+            'id_role'=>$this->faker->regexify('[1234]{1}'),
             'birthdate'=>$this->faker->date(),
             'email_verified_at' => now(),
             'status'=>$this->faker->randomElements(['Activo', 'Despedido','Retirado'])[0],
