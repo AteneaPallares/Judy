@@ -41,7 +41,30 @@ class User extends Authenticatable
 		'id_role',
 		'remember_token'
 	];
-
+	public function getStatusAttribute($value)
+    {
+		if($value==0){
+			return "Activo";
+		}
+		if($value==1){
+			return "Despedido";
+		}
+		if($value==2){
+			return "Retirado";
+		}
+    }
+	public function setStatusAttribute($value)
+    {
+		if($value=="Activo"){
+			$this->attributes['status'] = 0;
+		}
+		if($value=="Despedido"){
+			$this->attributes['status'] = 1;
+		}
+		if($value=="Retirado"){
+			$this->attributes['status'] = 2;
+		}
+    }
 	public function role()
 	{
 		return $this->belongsTo(Role::class, 'id_role');
