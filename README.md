@@ -11,8 +11,8 @@
 <!-- php artisan migrate:fresh --seed -->
 <!-- php artisan tinker -->
 Configuración
-- Configurar .env file
-- php artisan storage:link
+- Configurar .env file.
+- php artisan storage:link.
 Instalación
 - composer install
 - npm run install
