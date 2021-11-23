@@ -187,6 +187,10 @@ class ProductController extends Controller {
         if (request() -> isMethod("DELETE")) {
             try {
                 $product = Product:: findOrFail($id);
+                if(count($product->details_orders)>0||
+                count($product->details_sales)>0){
+                    return 0;
+                }
                 if ($product -> img != null) {
                     Storage:: delete ('public/'.$product -> img);
                 }

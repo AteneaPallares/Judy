@@ -498,8 +498,7 @@ export default {
               };
               this.confirmationp = null;
               this.nuevo = null;
-                document.getElementById("pic").src =null;
-         
+              
             }
 
           } else if (response.data.errors) {
@@ -555,7 +554,11 @@ export default {
                 "Agregando usuario",
                 "Imagen guardada con éxito"
               );
+              if(this.number==0){
+                this.deleteImg();
+              }
             }
+            
           });
         });
       }

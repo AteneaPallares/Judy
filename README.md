@@ -10,6 +10,11 @@
 ## About Laravel
 <!-- php artisan migrate:fresh --seed -->
 <!-- php artisan tinker -->
+composer require barryvdh/laravel-dompdf
+composer install
+npm run install
+php artisan storage:link
+npm run watch
 php artisan migrate
 php artisan db:seed
  

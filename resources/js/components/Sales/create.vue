@@ -45,8 +45,7 @@
                 <div class="row mt-5">
                   <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
                     <strong>Empleado</strong>
-                    <label class="text-danger" v-if="number != 2"> *</label
-                        >
+                    <label class="text-danger" v-if="number != 2"> *</label>
                     <el-select
                       style="width: 100%"
                       v-model="sale.id_employee"
@@ -65,8 +64,7 @@
                   </div>
                   <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
                     <strong>Cliente</strong>
-                    <label class="text-danger" v-if="number != 2"> *</label
-                        >
+                    <label class="text-danger" v-if="number != 2"> *</label>
                     <el-select
                       style="width: 100%"
                       v-model="sale.id_client"
@@ -161,23 +159,23 @@
                         </td>
                         <td>{{ val.id }}</td>
                         <td>{{ val.quantity }}</td>
-                        <td>{{ val.name }}</td>
+                        <td role="button" @click="goOut(val.id)">{{ val.name }}</td>
                         <td>$ {{ val.cost }}</td>
-                        <td>$ {{ val.cost * val.quantity }}</td>
+                        <td>$ {{ getR(val.cost * val.quantity) }}</td>
                       </tr>
                       <tr>
                         <td colspan="5" align="right">Subtotal</td>
-                        <td>${{ getSubtotal() }}</td>
+                        <td>${{ getR(getSubtotal()) }}</td>
                       </tr>
                       <tr>
                         <td colspan="5" align="right">
-                          +{{ getIVA() }}% de IVA
+                          +{{ getR(getIVA()) }}% de IVA
                         </td>
-                        <td>${{ getTotalIVA() }}</td>
+                        <td>${{ getR(getTotalIVA()) }}</td>
                       </tr>
                       <tr>
                         <td colspan="5" align="right">Monto Total</td>
-                        <td>${{ getTotal() }}</td>
+                        <td>${{getR( getTotal()) }}</td>
                       </tr>
                     </tbody>
 
@@ -209,6 +207,9 @@ export default {
       name: null,
       auxp: null,
       auxq: null,
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       auxsto: null,
       response: [],
       day_selected: null,
@@ -222,22 +223,8 @@ export default {
         updated_at: new Date(),
         saveproducts: null,
       },
-      all_days: [
-        {
-          value: "Lunes",
-          label: "Compras",
-        },
-        {
-          value: "Martes",
-          label: "Total",
-        },
-      ],
       editAvailable: false,
       editid: this.detailsid,
-      schedule: {
-        Lunes: [],
-        Martes: [],
-      },
     };
   },
   mounted() {
@@ -337,38 +324,45 @@ export default {
   },
   methods: {
     edit() {
-       if (
-          this.sale.id_employee == null ||
-          this.sale.id_client== null
-        ) {
-          this.showErrorNotification("Agregar Venta", "Ingrese todos los campos");
-          return;
-        }
+      if (this.sale.id_employee == null || this.sale.id_client == null) {
+        this.showErrorNotification("Agregar Venta", "Ingrese todos los campos");
+        return;
+      }
+      this.sale._token = this.csrf;
       this.sale.saveproducts = this.actualproducts;
       axios.post("/ventas", this.sale).then((response) => {
         if (_.isNumber(response.data.response)) {
-          if(response.data.errors!=null){
-            this.showErrorNotification("Error","Lo cantidad solicitada de siguientes id de productos no estan disponibles: "+response.data.errors);
-            return ;
+          if (response.data.errors != null) {
+            this.showErrorNotification(
+              "Error",
+              "Lo cantidad solicitada de siguientes id de productos no estan disponibles: " +
+                response.data.errors
+            );
+            return;
           }
           this.editid = response.data.response;
           this.showSuccessNotification(
             "Agregando Venta",
             "Información guardada con éxito"
           );
-          if(this.number==0){
-            this.sale.id_employee=null;
-            this.sale.id_client=null;
-            this.auxp=null;
-            this.auxq=null;
-            this.auxsto=null;
-            this.actualproducts=[];
+          if (this.number == 0) {
+            this.sale.id_employee = null;
+            this.sale.id_client = null;
+            this.auxp = null;
+            this.auxq = null;
+            this.auxsto = null;
+            this.actualproducts = [];
           }
         } else {
           this.showErrorNotification("Agregando Venta", response.data);
           return;
         }
       });
+    },
+    getR(r){
+      if(r==null)return 0.00;
+      console.log(r);
+      return (r).toFixed(2);
     },
     getRandomColor(indx) {
       indx = (indx + indx * 3) * (indx + 5 * indx * indx * indx) * indx + indx;
@@ -384,6 +378,9 @@ export default {
       }
       color = color.slice(0, 7);
       return color + 30;
+    },
+    goOut(id){
+      window.open("/productos/"+id+"/","_blank");
     },
     updateP() {
       var index = this.products.findIndex((i) => i.id === this.auxp);
@@ -437,7 +434,10 @@ export default {
     },
     addProduct() {
       if (this.auxp == null || this.auxq == null) {
-        this.showErrorNotification("Agregando", "Faltan datos");
+        this.showErrorNotification(
+          "Agregando",
+          "Seleccione cantidad y producto"
+        );
         return;
       }
       if (this.auxq <= 0 || this.auxq > this.auxsto) {
@@ -461,7 +461,7 @@ export default {
       });
       this.products[index].stock -= parseInt(this.auxq);
       this.auxsto = this.products[index].stock;
-    this.auxq=null;
+      this.auxq = null;
       console.log(this.actualproducts);
     },
     getSubtotal() {
@@ -484,7 +484,6 @@ export default {
       return this.getSubtotal() + this.getTotalIVA();
     },
     changed() {
-      console.log("hol");
       this.endTime = null;
     },
   },

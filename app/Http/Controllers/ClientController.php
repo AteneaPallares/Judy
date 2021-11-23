@@ -182,6 +182,9 @@ class ClientController extends Controller {
         if (request() -> isMethod("DELETE")) {
             try {
                 $client = Client:: findOrFail($id);
+                if(count($client->sales)>0){
+                    return 0;
+                }
                 if ($client -> img != null) {
                     Storage:: delete ('public/'.$client -> img);
                 }

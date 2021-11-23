@@ -106,7 +106,7 @@
                           type="text"
                           name="name"
                           v-model="product.name"
-                          placeholder="Nombre(s) Apellido(s)"
+                          placeholder="Ingrese nombre de producto"
                           :readonly="number == 2"
                         />
                       </div>
@@ -119,7 +119,7 @@
                           class="form-control"
                           type="text"
                           name="address"
-                          placeholder="Ejem. Jalisco, Guadalajara, Col. Yañez El verde #89"
+                          placeholder="Descripción"
                           v-model="product.description"
                           :readonly="number == 2"
                         />
@@ -135,7 +135,7 @@
                           class="form-control"
                           type="number"
                           name="phone"
-                          placeholder="Ejem. (+52) 3345234532"
+                          placeholder="Cantidad en almacén"
                           v-model="product.stock"
                           :readonly="number == 2"
                         />
@@ -149,7 +149,7 @@
                           class="form-control"
                           type="number"
                           name="phone"
-                          placeholder="Ejem. (+52) 3345234532"
+                          placeholder="$"
                           v-model="product.cost"
                           :readonly="number == 2"
                         />
@@ -180,6 +180,9 @@ export default {
       isDragging: false,
       dragCount: 0,
       images: [],
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       nuevo: [],
       show: false,
       product: {
@@ -282,6 +285,7 @@ export default {
     edit() {
       console.log(this.product);
       if (this.validate()) {
+        this.product._token = this.csrf;
         axios.post("/productos", this.product).then((response) => {
           if (_.isNumber(response.data.response)) {
             this.editid = response.data.response;
@@ -298,7 +302,6 @@ export default {
                 cost: null,
                 id: null,
               };
-              this.deleteImg();
             }
           } else if (response.data.errors) {
             console.log(response.data.errors);
@@ -353,6 +356,9 @@ export default {
                 "Agregando Producto",
                 "Imagen guardada con éxito"
               );
+              if(this.number==0){
+                this.deleteImg();
+              }
             }
           });
         });

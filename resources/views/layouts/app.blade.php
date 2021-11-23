@@ -10,7 +10,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 
     <title>Judy</title>
 

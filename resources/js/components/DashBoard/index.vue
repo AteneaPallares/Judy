@@ -327,7 +327,7 @@ export default {
     },
     onClickDetails($idy) {},
     print() {
-      window.open("/dashboard/print/", "_blank");
+      window.location="/dashboard/print/";
     },
   },
 };

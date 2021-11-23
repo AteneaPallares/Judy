@@ -119,7 +119,7 @@
                           class="form-control"
                           type="text"
                           name="address"
-                          placeholder="Ejem. Jalisco, Guadalajara, Col. Yañez El verde #89"
+                          placeholder="Ingrese compañia"
                           v-model="user.enterprise"
                           :readonly="number == 2"
                         />
@@ -179,6 +179,9 @@ export default {
       array: [],
       isDragging: false,
       dragCount: 0,
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       images: [],
       nuevo: [],
       show: false,
@@ -294,6 +297,7 @@ export default {
     },
     edit() {
       console.log(this.user);
+      this.user._token = this.csrf;
       if (this.validate()) {
         axios.post("/proveedores", this.user).then((response) => {
           if (_.isNumber(response.data.response)) {
@@ -311,7 +315,6 @@ export default {
                 phone: null,
                 enterprise: null,
               };
-              this.deleteImg();
             }
           } else if (response.data.errors) {
             console.log(response.data.errors);
@@ -366,6 +369,9 @@ export default {
                 "Agregando proveedor",
                 "Imagen guardada con éxito"
               );
+              if(this.number==0){
+                this.deleteImg();
+              }
             }
           });
         });

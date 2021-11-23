@@ -72,7 +72,7 @@
                           type="number"
                           name="name"
                           v-model="iva.porcentage"
-                          placeholder="Nombre(s) Apellido(s)"
+                          placeholder="%"
                           :readonly="number == 2"
                         />
                       </div>
@@ -114,6 +114,9 @@ export default {
       response: [],
       editAvailable: false,
       editid: this.detailsid,
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       iva: {
         id: null,
         start: null,
@@ -150,6 +153,7 @@ export default {
     edit() {
       console.log(this.iva);
       if (this.validate()) {
+        this.iva._token = this.csrf;
         axios.post("/iva", this.iva).then((response) => {
           if (_.isNumber(response.data.response)) {
             this.editid = response.data.response;

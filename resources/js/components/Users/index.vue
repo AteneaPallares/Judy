@@ -420,7 +420,7 @@ export default {
                   "El usuario se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification("Eliminar", "Usuario eliminada");
+                this.showSuccessNotification("Eliminar", "Usuario eliminado");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
                 axios.get("/empleados/all").then((res) => {

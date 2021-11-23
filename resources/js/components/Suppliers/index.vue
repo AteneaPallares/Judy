@@ -378,7 +378,7 @@ export default {
     },
     onClickDelete($idc, $iddel, $userd) {
       this.$confirm(
-        "Realmente desea eliminar al proveedore " + $userd.name,
+        "Realmente desea eliminar al proveedor " + $userd.name,
         "Alerta",
         {
           confirmButtonText: "Continuar",
@@ -394,10 +394,10 @@ export default {
               if (response.data != 1) {
                 this.showErrorNotification(
                   "Error al eliminar",
-                  "El proveedore se encuentra asignado"
+                  "El proveedor se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification("Eliminar", "proveedore eliminado");
+                this.showSuccessNotification("Eliminar", "Proveedor eliminado");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
                 axios.get("/proveedores/all").then((res) => {

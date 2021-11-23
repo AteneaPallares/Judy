@@ -197,6 +197,10 @@ class UserController extends Controller {
         if (request() -> isMethod("DELETE")) {
             try {
                 $user = User:: findOrFail($id);
+                if(count($user->orders)>0||
+                count($user->sales)>0){
+                    return 0;
+                }
                 if ($user -> img != null) {
                     Storage:: delete ('public/'.$user -> img);
                 }

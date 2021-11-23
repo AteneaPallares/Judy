@@ -180,6 +180,9 @@ class SupplierController extends Controller {
         if (request() -> isMethod("DELETE")) {
             try {
                 $supplier = Supplier:: findOrFail($id);
+                if(count($supplier->orders)>0){
+                    return 0;
+                }
                 if ($supplier -> img != null) {
                     Storage:: delete ('public/'.$supplier -> img);
                 }

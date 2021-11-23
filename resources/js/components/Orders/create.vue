@@ -167,23 +167,23 @@
                         </td>
                         <td>{{ val.id }}</td>
                         <td>{{ val.quantity }}</td>
-                        <td>{{ val.name }}</td>
+                        <td role="button" @click="goOut(val.id)">{{ val.name }}</td>
                         <td>$ {{ val.price }}</td>
-                        <td>$ {{ val.price * val.quantity }}</td>
+                        <td>$ {{ getR(val.price * val.quantity) }}</td>
                       </tr>
                       <tr>
                         <td colspan="5" align="right">Subtotal</td>
-                        <td>${{ getSubtotal() }}</td>
+                        <td>${{ getR(getSubtotal()) }}</td>
                       </tr>
                       <tr>
                         <td colspan="5" align="right">
-                          +{{ getIVA() }}% de IVA
+                          +{{getR( getIVA() )}}% de IVA
                         </td>
-                        <td>${{ getTotalIVA() }}</td>
+                        <td>${{ getR(getTotalIVA()) }}</td>
                       </tr>
                       <tr>
                         <td colspan="5" align="right">Monto Total</td>
-                        <td>${{ getTotal() }}</td>
+                        <td>${{ getR(getTotal()) }}</td>
                       </tr>
                     </tbody>
 
@@ -213,6 +213,9 @@ export default {
       orders: null,
       name: null,
       auxp: null,
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       auxq: null,
       response: [],
       auxprice:null,
@@ -351,6 +354,7 @@ export default {
       //     this.showErrorNotification("Agregar Pedido", "Ingrese todos los campos");
       //     return;
       //   }
+      this.order._token = this.csrf;
       this.order.saveproducts = this.actualorders;
       axios.post("/pedidos", this.order).then((response) => {
         if (_.isNumber(response.data.response)) {
@@ -396,6 +400,14 @@ export default {
         message: text,
         type: "error",
       });
+    },
+     goOut(id){
+      window.open("/productos/"+id+"/","_blank");
+    },
+    getR(r){
+      if(r==null)return 0.00;
+      console.log(r);
+      return (r).toFixed(2);
     },
     updateP(){
       var index = this.products.findIndex((i) => i.id === this.auxp);

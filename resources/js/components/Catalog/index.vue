@@ -75,10 +75,19 @@ export default {
     };
   },
   mounted() {
-    axios.get("/productos/all").then((res) => {
-      this.allproducts = res.data;
-      console.log(this.allproducts);
-    });
+    axios
+      .get("/productos/all")
+      .then((res) => {
+        this.allproducts = res.data;
+        console.log(this.allproducts);
+      })
+      .catch(() => {
+        this.$notify({
+          type: "error",
+          title: "Error",
+          message: "Verifique la conectividad con la DB",
+        });
+      });
   },
   methods: {
     getVal(prop) {

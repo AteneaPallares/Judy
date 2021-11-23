@@ -344,7 +344,6 @@ export default {
                 phone: null,
                 gender: null,
               };
-              this.deleteImg();
             }
            
           } else if (response.data.errors) {
@@ -400,6 +399,9 @@ export default {
                 "Agregando cliente",
                 "Imagen guardada con éxito"
               );
+              if(this.number==0){
+                this.deleteImg();
+              }
             }
           });
         });
