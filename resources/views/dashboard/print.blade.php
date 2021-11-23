@@ -66,24 +66,11 @@
             <h6 class="m-2 ">
                 <center class="font-weight-bold h6">Información del reporte</center>
             </h6>
-            <div class="container col-sm-12 row text-center m-2 mt-3">
-                <table class="col-lg-12 p-0">
-
-                    <body>
-                        <tr>
-                            <td class="w-50 ">
-                                <div class="border chartData col-sm-12 rounded border-dark text-left m-1 mb-1">
-                                    <label class="text h6 small">Solicitado por:{{$username}} </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class=" border chartData col-sm-12 rounded border-dark text-left m-1 mb-1">
-                                    <label class="text h6 small">Fecha: {{$dates}}</label>
-                                </div>
-                            </td>
-                        </tr>
-                    </body>
-                </table>
+            <div class="container col-sm-12 row text-left m-2 mt-3">
+               
+                        <label class="text h6 small">Solicitado por:{{$username}} </label>
+                              
+            
 
 
             </div>
