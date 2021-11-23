@@ -22,9 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('img')->nullable();
             $table->string('gender')->nullable();
             $table->string('status')->nullable();
-            $table->string('salary')->nullable();
             $table->timestamp('birthdate')->nullable();
-            $table->timestamp('startwork')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('id_role')->nullable()->index('fk_id__role');

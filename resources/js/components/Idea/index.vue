@@ -60,16 +60,18 @@ export default {
       allproducts: [],
       items:null,
       videos:[],
+      api:null,
     };
   },
   mounted() {
-    axios.get("https://www.googleapis.com/youtube/v3/search?&q=papel+de+oficina+fotograficos&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&chart=mostPopular").then((res) => {
+    this.api="AIzaSyDKo7S_6p28ty9VKvwtH1vt51vqq7x3_CU";
+    axios.get("https://www.googleapis.com/youtube/v3/search?&q=papel+de+oficina+fotograficos&key="+this.api+"&chart=mostPopular").then((res) => {
       console.log(res.data);
       this.items=res.data;
       console.log(this.items.items);
       this.items.items.forEach((value, index) => {
         let id=value.id.videoId;
-         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48").then((res2) => {
+         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key="+this.api+"").then((res2) => {
            this.videos.push(res2.data.items[0].snippet);
            console.log(res2.data);
            console.log("All");
@@ -77,13 +79,13 @@ export default {
          });
       })
     });
-    axios.get("https://www.googleapis.com/youtube/v3/search?&q=manualidades&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&chart=mostPopular").then((res) => {
+    axios.get("https://www.googleapis.com/youtube/v3/search?&q=manualidades&key="+this.api+"&chart=mostPopular").then((res) => {
       console.log(res.data);
       this.items=res.data;
       console.log(this.items.items);
       this.items.items.forEach((value, index) => {
         let id=value.id.videoId;
-         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48").then((res2) => {
+         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key="+this.api+"").then((res2) => {
            this.videos.push(res2.data.items[0].snippet);
            console.log(res2.data);
            console.log("All");
@@ -91,13 +93,14 @@ export default {
          });
       })
     });
-     axios.get("https://www.googleapis.com/youtube/v3/search?&q=tipos+de+papeles+chino+foami&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48&chart=mostPopular").then((res) => {
+     axios.get("https://www.googleapis.com/youtube/v3/search?&q=tipos+de+papeles+chino+foami&key="+this.api+"&chart=mostPopular").then((res) => {
       console.log(res.data);
       this.items=res.data;
       console.log(this.items.items);
       this.items.items.forEach((value, index) => {
         let id=value.id.videoId;
-         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key=AIzaSyBTBhsuL3w6686P2QSUn8X5NhQuB-rGl48").then((res2) => {
+         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+id+"&key="+this.api).then((res2) => {
+           res2.data.items[0].snippet.id=id;
            this.videos.push(res2.data.items[0].snippet);
            console.log(res2.data);
            console.log("All");
@@ -114,7 +117,7 @@ export default {
       }
       return "../../../../storage/" + prop.img;
     },send(prop){
-        window.location="/productos/"+prop.id;
+      window.open("https://www.youtube.com/watch?v=Bznxx12Ptl0/"+prop.id, "_blank");
     }
   },
 };

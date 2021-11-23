@@ -27,19 +27,19 @@ class CreateRolesTable extends Migration
         );
         DB::table('roles')->insert(
             array(
-                'name' => 'Doctor',
+                'name' => 'Vendedor',
                 'description'=>'Acceso total pacientes'
             )
         );
         DB::table('roles')->insert(
             array(
-                'name' => 'Enfermera',
+                'name' => 'Gerente',
                 'description'=>'Acceso parcial a pacientes'
             )
         );
         DB::table('roles')->insert(
             array(
-                'name' => 'Secretaria',
+                'name' => 'Personal de almacén',
                 'description'=>'Acceso parcial del sistema'
             )
         );

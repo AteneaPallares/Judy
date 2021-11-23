@@ -8,6 +8,11 @@
 </p>
 
 ## About Laravel
+php artisan tinker
+ 
+User::factory()->count(20)->create()
+Client::factory()->count(20)->create()
+Product::factory()->count(20)->create()
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 

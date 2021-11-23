@@ -125,10 +125,13 @@
                         <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>-->
                        @guest
                        <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
-                       
+                       <li class="nav-item"><a href="/ideas/" class="nav-link">Ideas</a></li> 
+                        
                        @else
                         <li class="nav-item"><a href="/dashboard" class="nav-link">Administrar</a></li>
                         <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
+                        <li class="nav-item"><a href="/ideas/" class="nav-link">Ideas</a></li> 
+                        
                         @endguest
                     </ul>
 
